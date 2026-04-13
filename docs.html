@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Documentation — CHISEL UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;500&family=DM+Sans:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .doc-layout {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 60px;
+    }
+
+    .doc-left-sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 260px;
+      height: calc(100vh - 60px);
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      z-index: 50;
+      padding-top: var(--space-6);
+    }
+
+    .doc-left-sidebar::-webkit-scrollbar { display: none; }
+
+    .doc-sidebar-header {
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--border);
+      margin-top: calc(var(--space-6) * -1);
+    }
+
+    .doc-sidebar-logo a {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .doc-sidebar-logo a span { color: var(--accent2); }
+
+    .doc-version {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      background: var(--accent2);
+      color: var(--bg);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      margin-top: var(--space-2);
+    }
+
+    .doc-search {
+      margin: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3);
+      transition: border-color var(--duration-fast) var(--ease-out);
+    }
+
+    .doc-search:focus-within {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .doc-search .material-symbols-outlined {
+      font-size: 14px;
+      color: var(--text3);
+      flex-shrink: 0;
+    }
+
+    .doc-search input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .doc-search input::placeholder { color: var(--text3); }
+
+    .doc-search-shortcut {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      color: var(--text3);
+      background: var(--tag-bg);
+      padding: 2px var(--space-1);
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .doc-nav-section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      padding: var(--space-4) var(--space-6) var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .doc-nav-item {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text2);
+      padding: var(--space-2) var(--space-6);
+      border-left: 2px solid transparent;
+      transition: all var(--duration-fast) var(--ease-out);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .doc-nav-item:hover {
+      color: var(--text);
+      background: var(--surface2);
+    }
+
+    .doc-nav-item.active {
+      color: var(--accent2);
+      border-left-color: var(--accent2);
+      background: var(--surface);
+    }
+
+    .doc-nav-sub {
+      padding-left: var(--space-10);
+      font-size: 12px;
+    }
+
+    .doc-main {
+      margin-left: 260px;
+      margin-right: 240px;
+      padding: var(--space-16) var(--space-16) var(--space-20) var(--space-16);
+      min-height: calc(100vh - 60px);
+    }
+
+    .doc-content {
+      max-width: 680px;
+    }
+
+    .doc-content h1 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: clamp(28px, 3vw, 40px);
+      color: var(--text);
+      margin: var(--space-12) 0 var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border);
+    }
+
+    .doc-content h1:first-child { border-top: none; margin-top: 0; }
+
+    .doc-content h2 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: clamp(18px, 2vw, 24px);
+      color: var(--text);
+      margin: var(--space-10) 0 var(--space-4);
+      padding-top: var(--space-6);
+    }
+
+    .doc-content h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin: var(--space-10) 0 var(--space-3);
+    }
+
+    .doc-content h3:first-child { margin-top: 0; }
+
+    .doc-content h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      margin: var(--space-6) 0 var(--space-2);
+    }
+
+    .doc-content p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text2);
+      margin: 0 0 var(--space-4);
+    }
+
+    .doc-content strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .doc-content a {
+      color: var(--accent2);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity var(--duration-fast) var(--ease-out);
+    }
+
+    .doc-content a:hover { opacity: 0.75; }
+
+    .doc-content ul {
+      list-style: disc;
+      padding-left: var(--space-5);
+    }
+
+    .doc-content ul li::marker {
+      color: var(--accent2);
+    }
+
+    .doc-content ol {
+      list-style: decimal;
+      padding-left: var(--space-5);
+    }
+
+    .doc-content ol li::marker {
+      color: var(--accent2);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+    }
+
+    .doc-content ul,
+    .doc-content ol {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text2);
+      margin: 0 0 var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .doc-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: var(--space-10) 0;
+    }
+
+    .doc-section-break {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin: var(--space-16) 0 var(--space-10);
+    }
+
+    .doc-section-break::before,
+    .doc-section-break::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .doc-section-break-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      white-space: nowrap;
+    }
+
+    .doc-code {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin: var(--space-4) 0 var(--space-6);
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .doc-code-filename {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .doc-code pre {
+      font-family: 'DM Sans', monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text2);
+      margin: 0;
+      white-space: pre;
+    }
+
+    .doc-code-copy {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-1) var(--space-2);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      cursor: pointer;
+      color: var(--text3);
+      transition: all var(--duration-fast);
+    }
+
+    .doc-code-copy:hover {
+      background: var(--accent2);
+      color: var(--bg);
+    }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0 var(--space-6);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+    }
+
+    .doc-table th {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      text-align: left;
+      padding: var(--space-2) var(--space-4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      vertical-align: top;
+    }
+
+    .doc-table tr:last-child td { border-bottom: none; }
+    .doc-table tr:hover td { background: var(--surface2); }
+
+    .doc-table code {
+      font-family: 'DM Sans', monospace;
+      font-size: 11px;
+      background: var(--tag-bg);
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-sm);
+      color: var(--accent2);
+    }
+
+    .doc-callout {
+      display: flex;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-6);
+      border-radius: var(--radius-lg);
+      margin: var(--space-4) 0 var(--space-6);
+      border-left: 3px solid;
+    }
+
+    .doc-callout-tip {
+      background: rgba(200, 169, 110, 0.06);
+      border-color: var(--accent2);
+    }
+
+    .doc-callout-warning {
+      background: rgba(255, 159, 10, 0.08);
+      border-color: #FF9F0A;
+    }
+
+    .doc-callout-warning .doc-callout-icon { color: #FF9F0A; }
+
+    .doc-callout-info {
+      background: rgba(0, 122, 255, 0.06);
+      border-color: #007AFF;
+    }
+
+    .doc-callout-info .doc-callout-icon { color: #007AFF; }
+
+    .doc-callout-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .doc-callout p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .doc-do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin: var(--space-4) 0 var(--space-6);
+    }
+
+    .doc-do {
+      border: 1px solid var(--color-success-border);
+      border-top: 3px solid var(--color-success);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .doc-dont {
+      border: 1px solid rgba(255, 59, 48, 0.25);
+      border-top: 3px solid #FF3B30;
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .doc-do-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-success);
+      margin-bottom: var(--space-3);
+    }
+
+    .doc-dont-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #FF3B30;
+      margin-bottom: var(--space-3);
+    }
+
+    .doc-do-desc,
+    .doc-dont-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .doc-toc {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      width: 240px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      padding: var(--space-8) var(--space-6) var(--space-8) var(--space-6);
+      border-left: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .doc-toc-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      margin-bottom: var(--space-4);
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .doc-toc-list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .doc-toc-item {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text3);
+      padding: var(--space-1) 0;
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-out);
+      line-height: 1.6;
+    }
+
+    .doc-toc-item:hover { color: var(--text); }
+
+    .doc-toc-item.active {
+      color: var(--accent2);
+      font-weight: 500;
+    }
+
+    .doc-toc-sub {
+      padding-left: var(--space-4);
+    }
+
+    .doc-toc-quicklinks {
+      flex-shrink: 0;
+      border-top: 1px solid var(--border);
+      padding-top: var(--space-4);
+      margin-top: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .doc-toc-quicklink {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) 0;
+      transition: opacity var(--duration-fast) var(--ease-out);
+    }
+
+    .doc-toc-quicklink:hover { opacity: 0.7; }
+
+    .doc-pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-16);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--border);
+    }
+
+    .doc-pagination-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      text-decoration: none;
+      padding: var(--space-4) var(--space-5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: all var(--duration-fast) var(--ease-out);
+      max-width: 240px;
+    }
+
+    .doc-pagination-item:hover {
+      border-color: var(--accent2);
+      background: var(--surface);
+    }
+
+    .doc-pagination-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+    }
+
+    .doc-pagination-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .doc-pagination-prev { text-align: left; }
+    .doc-pagination-next { text-align: right; margin-left: auto; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-default {
+      background: var(--tag-bg);
+      color: var(--text2);
+    }
+
+    .badge-gold {
+      background: rgba(200, 169, 110, 0.15);
+      color: var(--accent2);
+    }
+
+    .badge-success {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+    }
+
+    .badge-info {
+      background: rgba(0, 122, 255, 0.1);
+      color: #007AFF;
+    }
+
+    .doc-page-header {
+      padding-bottom: var(--space-10);
+      margin-bottom: var(--space-10);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-page-header .eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: var(--space-2);
+    }
+
+    .doc-page-header h1 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--text);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-3);
+      border: none;
+      padding: 0;
+    }
+
+    .doc-page-header .desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: var(--text2);
+      margin-bottom: var(--space-3);
+    }
+
+    .doc-page-header .meta {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+      margin-top: var(--space-4);
+      display: block;
+    }
+
+    .doc-toc-wrapper {
+      position: fixed;
+      right: 0;
+      top: 60px;
+      width: 240px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      padding: var(--space-6) 0;
+    }
+
+    .doc-toc-wrapper::-webkit-scrollbar { display: none; }
+
+    @media (max-width: 1024px) {
+      .doc-toc-wrapper { display: none; }
+      .doc-main { margin-right: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .doc-left-sidebar {
+        position: fixed;
+        left: -260px;
+        transition: left var(--duration-slow) var(--ease-out);
+        z-index: 150;
+      }
+
+      .doc-left-sidebar.open { left: 0; }
+
+      .doc-main {
+        margin-left: 0;
+        padding: var(--space-6) var(--space-5) var(--space-16);
+      }
+
+      .doc-pagination { flex-direction: column; gap: var(--space-3); }
+      .doc-pagination-item { max-width: 100%; width: 100%; }
+      .doc-pagination-next { margin-left: 0; }
+
+      .doc-do-dont { grid-template-columns: 1fr; }
+    }
+
+    .doc-sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 140;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .doc-sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .doc-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: var(--space-2);
+    }
+
+    @media (max-width: 768px) {
+      .doc-menu-toggle { display: flex; }
+    }
+
+    .doc-version-tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+      margin-bottom: var(--space-4);
+    }
+
+    .doc-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-6) 0;
+    }
+
+    .doc-overview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .doc-overview-card-value {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 32px;
+      color: var(--accent2);
+      margin-bottom: var(--space-1);
+    }
+
+    .doc-overview-card-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text2);
+    }
+  </style>
+</head>
+
+<body>
+  <nav aria-label="Main navigation" class="doc-nav">
+    <a class="nav-logo" href="index.html">CHISEL<span>.</span>UI</a>
+    <button class="doc-menu-toggle" id="docMenuToggle" aria-label="Toggle documentation menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="components.html">Components</a></li>
+      <li><a href="docs.html" class="active">Documentation</a></li>
+      <li><a href="#">Figma Kit</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+      </button>
+      <a href="#" class="btn btn-primary btn-sm">Open in Figma</a>
+    </div>
+  </nav>
+
+  <div class="doc-sidebar-backdrop" id="docSidebarBackdrop"></div>
+
+  <div class="doc-layout">
+    <aside class="doc-left-sidebar" id="docSidebar">
+      <div class="doc-sidebar-header">
+        <div class="doc-sidebar-logo">
+          <a href="index.html">CHISEL<span>.</span>UI</a>
+        </div>
+        <span class="doc-version">v1.0.0</span>
+      </div>
+
+      <div class="doc-search" id="docSearch">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Search docs..." id="docSearchInput">
+        <span class="doc-search-shortcut">⌘K</span>
+      </div>
+
+      <nav class="doc-sidebar-nav">
+        <div class="doc-nav-section-label">Docs</div>
+        <a href="#introduction" class="doc-nav-item active">Introduction</a>
+        <a href="#getting-started" class="doc-nav-item">Getting Started</a>
+        <a href="#accessing-the-file" class="doc-nav-item doc-nav-sub">Accessing the file</a>
+        <a href="#file-structure" class="doc-nav-item doc-nav-sub">File structure</a>
+        <a href="#team-library" class="doc-nav-item doc-nav-sub">Team library</a>
+        <a href="#requirements" class="doc-nav-item doc-nav-sub">Requirements</a>
+
+        <div class="doc-nav-section-label">Foundations</div>
+        <a href="#color" class="doc-nav-item">Color</a>
+        <a href="#typography" class="doc-nav-item">Typography</a>
+        <a href="#spacing" class="doc-nav-item">Spacing</a>
+        <a href="#border-radius" class="doc-nav-item">Border Radius</a>
+        <a href="#shadows-elevation" class="doc-nav-item">Shadows & Elevation</a>
+        <a href="#grid-layout" class="doc-nav-item">Grid & Layout</a>
+        <a href="#iconography" class="doc-nav-item">Iconography</a>
+
+        <div class="doc-nav-section-label">Tokens</div>
+        <a href="#what-are-tokens" class="doc-nav-item">What are tokens</a>
+        <a href="#token-naming" class="doc-nav-item">Token naming</a>
+        <a href="#figma-variables" class="doc-nav-item">Figma Variables</a>
+        <a href="#token-categories" class="doc-nav-item">Token categories</a>
+        <a href="#customizing-tokens" class="doc-nav-item">Customizing tokens</a>
+
+        <div class="doc-nav-section-label">Components</div>
+        <a href="#button" class="doc-nav-item">Button</a>
+        <a href="#input" class="doc-nav-item">Input</a>
+        <a href="#badge" class="doc-nav-item">Badge</a>
+        <a href="#toggle" class="doc-nav-item">Toggle</a>
+        <a href="#tabs" class="doc-nav-item">Tabs</a>
+        <a href="#card" class="doc-nav-item">Card</a>
+        <a href="#list" class="doc-nav-item">List</a>
+        <a href="#modal" class="doc-nav-item">Modal</a>
+
+        <div class="doc-nav-section-label">Patterns</div>
+        <a href="#form-patterns" class="doc-nav-item">Form patterns</a>
+        <a href="#navigation-patterns" class="doc-nav-item">Navigation patterns</a>
+        <a href="#feedback-patterns" class="doc-nav-item">Feedback patterns</a>
+        <a href="#content-patterns" class="doc-nav-item">Content patterns</a>
+
+        <div class="doc-nav-section-label">Theming</div>
+        <a href="#built-in-themes" class="doc-nav-item">Built-in themes</a>
+        <a href="#custom-theme" class="doc-nav-item">Custom theme</a>
+        <a href="#what-to-keep" class="doc-nav-item">What to keep</a>
+
+        <div class="doc-nav-section-label">Contributing</div>
+        <a href="#requesting-component" class="doc-nav-item">Requesting a component</a>
+        <a href="#reporting-bug" class="doc-nav-item">Reporting a bug</a>
+        <a href="#roadmap" class="doc-nav-item">Roadmap</a>
+
+        <div class="doc-nav-section-label">Reference</div>
+        <a href="#changelog" class="doc-nav-item">Changelog</a>
+        <a href="#faq" class="doc-nav-item">FAQ</a>
+      </nav>
+    </aside>
+
+    <main class="doc-main">
+      <div class="doc-content" id="docContent">
+        <div class="doc-page-header">
+          <div class="eyebrow">Documentation</div>
+          <h1>Chisel UI Docs</h1>
+          <p class="desc">Everything you need to use, customize, and extend Chisel UI.</p>
+          <p class="meta">Version 1.0.0 · Last updated April 2026</p>
+        </div>
+
+        <section id="introduction">
+          <h2>Introduction</h2>
+          <p>Chisel UI is a precision-built Figma component library designed for product designers and design system teams who care about the details. Every component is built token-first, with full auto layout, component properties, and light and dark mode included out of the box.</p>
+          <p>This library is not a shortcut — it is a foundation. The goal is not to replace your design thinking but to give you a system that handles the structural decisions so you can focus on the product.</p>
+          
+          <h3>What's included</h3>
+          <ul>
+            <li>47 components across 8 categories</li>
+            <li>Full token system — color, typography, spacing, radius, shadow, motion</li>
+            <li>Light and dark mode for every component</li>
+            <li>Auto layout on every frame</li>
+            <li>Figma Variables support</li>
+            <li>Swap-ready icon set</li>
+            <li>6 full-page templates</li>
+          </ul>
+          
+          <h3>Who's it for</h3>
+          <ul>
+            <li>Product designers building digital products</li>
+            <li>Design system leads establishing a token-based foundation</li>
+            <li>Freelancers who want a professional starting point without building from scratch</li>
+          </ul>
+          
+          <h3>Philosophy</h3>
+          <p>Good design has a system. Chisel UI is built on the belief that consistency is not a constraint — it is what makes products feel considered. Every decision in this library, from the 8pt spacing scale to the five-level elevation system, exists for a reason.</p>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Getting Started</span>
+        </div>
+
+        <section id="getting-started">
+          <h2>Getting Started</h2>
+
+          <h3 id="accessing-the-file">2.1 Accessing the file</h3>
+          <p><strong>Option A — Figma Community</strong></p>
+          <p>Search "Chisel UI" on the Figma Community page, or use the direct link in the navigation. Click Duplicate to add the file to your drafts.</p>
+          <p><strong>Option B — Direct link</strong></p>
+          <p>Click "Open in Figma" from any page on the Chisel UI website. This takes you directly to the Community file.</p>
+          <p>Once duplicated, the file lives in your Figma drafts. From there you can move it to any project or team.</p>
+
+          <h3 id="file-structure">2.2 File structure</h3>
+          <p>The Figma file is organized into seven pages:</p>
+          <ul>
+            <li><strong>Cover</strong> — File metadata, version number, last updated date, and a quick summary of what changed in this release.</li>
+            <li><strong>Foundations</strong> — The raw design system building blocks — color palette, type scale, spacing scale, radius scale, elevation system, grid specifications, and the icon library. This is the reference page. You should not need to edit anything here.</li>
+            <li><strong>Components</strong> — All 47 components organized by category — Forms, Navigation, Feedback, Data Display, Layout, Overlays, Typography. Each component is presented with all its variants and states laid out in a structured frame. Component properties are set and ready to use.</li>
+            <li><strong>Tokens</strong> — The full variable system. Every token is defined here as a Figma Variable with light and dark mode values. This is where you go if you want to customize the system for your brand.</li>
+            <li><strong>Icons</strong> — The icon set organized into categories. All icons are components with a consistent 24px frame. Swap icons using the component panel.</li>
+            <li><strong>Templates</strong> — Six full-page templates assembled from Chisel UI components — a landing page, a dashboard, a settings page, a login page, a pricing page, and a component showcase.</li>
+            <li><strong>Changelog</strong> — Version history in reverse chronological order. Every addition, change, and fix is documented here.</li>
+          </ul>
+
+          <h3 id="team-library">2.3 Using as a team library</h3>
+          <p>To make Chisel UI components available in all your team's Figma files:</p>
+          <ol>
+            <li>Move the duplicated file into your team workspace (not personal drafts)</li>
+            <li>Open the file</li>
+            <li>Click the Figma menu (top left) → Libraries</li>
+            <li>Click "Publish library"</li>
+            <li>Add a description and click Publish</li>
+            <li>In any other file in your team, open the Libraries panel and enable Chisel UI</li>
+          </ol>
+          <p>Once enabled, all components appear in the Assets panel under "Chisel UI" and can be dragged directly into your designs.</p>
+
+          <h3 id="requirements">2.4 Requirements</h3>
+          <div class="doc-callout doc-callout-info">
+            <span class="material-symbols-outlined doc-callout-icon">info</span>
+            <p>Chisel UI uses Figma Variables for the token system. This feature is available on all Figma plans including Free. However, Variable Modes (used for switching between light and dark mode) require a paid Figma plan.</p>
+          </div>
+          <p>If you are on the free plan, you can still use all components — they will open in their default (light) mode. Dark mode switching via Variables will not be available, but you can still view dark mode variants on the Components page.</p>
+          <p>Minimum Figma version: December 2023 release or later (Variables support required)</p>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Foundations</span>
+        </div>
+
+        <section id="color">
+          <h2>Color</h2>
+          <p>The color system is built on two layers — a raw palette and a semantic token layer mapped on top of it.</p>
+          <h3>Raw palette</h3>
+          <p>The palette contains nine color ramps. Each ramp has seven stops from lightest (50) to darkest (900). The ramps are: Gray, Blue, Teal, Coral, Pink, Green, Amber, Red, and Purple. These are the source-of-truth values. You should never use raw palette values directly in your designs — always use the semantic tokens.</p>
+          <h3>Semantic tokens</h3>
+          <p>Semantic tokens give meaning to raw palette values:</p>
+          <table class="doc-table">
+            <tr><th>Token</th><th>Description</th></tr>
+            <tr><td><code>color/bg/primary</code></td><td>Page background</td></tr>
+            <tr><td><code>color/bg/secondary</code></td><td>Elevated surface (cards, panels)</td></tr>
+            <tr><td><code>color/bg/tertiary</code></td><td>Deeper surface (sidebars, inputs)</td></tr>
+            <tr><td><code>color/text/primary</code></td><td>Primary body text</td></tr>
+            <tr><td><code>color/text/secondary</code></td><td>Muted text, descriptions</td></tr>
+            <tr><td><code>color/text/tertiary</code></td><td>Placeholder text, labels</td></tr>
+            <tr><td><code>color/border/default</code></td><td>Standard borders</td></tr>
+            <tr><td><code>color/border/strong</code></td><td>Emphasized borders, hover states</td></tr>
+            <tr><td><code>color/accent/gold</code></td><td>Brand accent (decorative)</td></tr>
+            <tr><td><code>color/accent/label</code></td><td>Brand accent (text labels)</td></tr>
+          </table>
+          <h3>Light and dark mode</h3>
+          <p>Every semantic token has a light and dark mode value. Switching modes in Figma swaps all token values simultaneously — no manual recoloring needed. To switch a frame between light and dark mode, select the frame, open the Variables panel, and change the mode.</p>
+          <h3>Customizing colors</h3>
+          <p>To use your own brand colors, open the Tokens page, select the variable collection, and override the semantic token values. You do not need to touch the raw palette. See Section 7 (Theming) for a full walkthrough.</p>
+        </section>
+
+        <section id="typography">
+          <h2>Typography</h2>
+          <p>Chisel UI uses three typefaces, each with a specific role:</p>
+          <ul>
+            <li><strong>Audiowide</strong> — display only. Used for all titles, section headings, component names, stat values, and the logo. Never use Audiowide for body text or small labels — it is a display face and becomes illegible below 14px.</li>
+            <li><strong>Orbitron</strong> — UI labels only. Used for all uppercase labels, badges, nav links, buttons, eyebrow text, and metadata. Always used uppercase with letter-spacing 0.08em. Available in Regular (400) and Medium (500).</li>
+            <li><strong>DM Sans</strong> — body only. Used for all descriptions, body copy, list items, muted subtitles, placeholder text, and longer-form content. Available in Regular (400) and Medium (500).</li>
+          </ul>
+          <h3>Type scale</h3>
+          <table class="doc-table">
+            <tr><th>Token</th><th>Size</th><th>Weight</th><th>Font</th><th>Usage</th></tr>
+            <tr><td><code>display/2xl</code></td><td>140px max</td><td>400</td><td>Audiowide</td><td>Hero titles</td></tr>
+            <tr><td><code>display/xl</code></td><td>72px max</td><td>400</td><td>Audiowide</td><td>CTA headings</td></tr>
+            <tr><td><code>display/lg</code></td><td>52px max</td><td>400</td><td>Audiowide</td><td>Section titles</td></tr>
+            <tr><td><code>display/md</code></td><td>40px max</td><td>400</td><td>Audiowide</td><td>Card titles</td></tr>
+            <tr><td><code>display/sm</code></td><td>24px</td><td>400</td><td>Audiowide</td><td>Sub-headings</td></tr>
+            <tr><td><code>label/lg</code></td><td>12px</td><td>500</td><td>Orbitron</td><td>Buttons, large labels</td></tr>
+            <tr><td><code>label/md</code></td><td>10px</td><td>400</td><td>Orbitron</td><td>Standard labels, badges</td></tr>
+            <tr><td><code>label/sm</code></td><td>10px</td><td>400</td><td>Orbitron</td><td>Captions, metadata</td></tr>
+            <tr><td><code>body/lg</code></td><td>16px</td><td>400</td><td>DM Sans</td><td>Primary body</td></tr>
+            <tr><td><code>body/md</code></td><td>14px</td><td>400</td><td>DM Sans</td><td>Secondary body</td></tr>
+            <tr><td><code>body/sm</code></td><td>13px</td><td>400</td><td>DM Sans</td><td>Muted text</td></tr>
+            <tr><td><code>body/xs</code></td><td>12px</td><td>400</td><td>DM Sans</td><td>Fine print</td></tr>
+          </table>
+          <p>All display sizes use clamp() for responsive scaling. The max values above are desktop values — they scale down proportionally on smaller screens.</p>
+          <h3>Applying text styles in Figma</h3>
+          <p>Select a text layer, open the Text panel on the right, click the style icon next to the font field, and choose from the Chisel UI text styles list.</p>
+        </section>
+
+        <section id="spacing">
+          <h2>Spacing</h2>
+          <p>Chisel UI uses an 8pt spacing scale. Every spacing value in the system is a multiple of 4px, with a preference for multiples of 8px for larger values.</p>
+          <table class="doc-table">
+            <tr><th>Token</th><th>Value</th><th>Common usage</th></tr>
+            <tr><td><code>space/1</code></td><td>4px</td><td>Icon gaps, tight internal paddings</td></tr>
+            <tr><td><code>space/2</code></td><td>8px</td><td>Small component paddings</td></tr>
+            <tr><td><code>space/3</code></td><td>12px</td><td>Badge padding, compact gaps</td></tr>
+            <tr><td><code>space/4</code></td><td>16px</td><td>Standard component paddings</td></tr>
+            <tr><td><code>space/5</code></td><td>20px</td><td>Medium gaps</td></tr>
+            <tr><td><code>space/6</code></td><td>24px</td><td>Card padding, comfortable gaps</td></tr>
+            <tr><td><code>space/8</code></td><td>32px</td><td>Large gaps between elements</td></tr>
+            <tr><td><code>space/10</code></td><td>40px</td><td>Page gutters, section gaps</td></tr>
+            <tr><td><code>space/12</code></td><td>48px</td><td>Compact section paddings</td></tr>
+            <tr><td><code>space/16</code></td><td>64px</td><td>Medium section paddings</td></tr>
+            <tr><td><code>space/20</code></td><td>80px</td><td>Standard section paddings</td></tr>
+            <tr><td><code>space/24</code></td><td>96px</td><td>Large section paddings</td></tr>
+            <tr><td><code>space/30</code></td><td>120px</td><td>Extra large section paddings</td></tr>
+            <tr><td><code>space/40</code></td><td>160px</td><td>Hero/CTA section padding</td></tr>
+          </table>
+          <h4>Section padding tokens</h4>
+          <table class="doc-table">
+            <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+            <tr><td><code>section/padding/sm</code></td><td>48px</td><td>Compact sections (stats bar, strips)</td></tr>
+            <tr><td><code>section/padding/md</code></td><td>80px</td><td>Standard sections</td></tr>
+            <tr><td><code>section/padding/lg</code></td><td>120px</td><td>Large featured sections</td></tr>
+            <tr><td><code>section/padding/xl</code></td><td>160px</td><td>Hero and final CTAs</td></tr>
+            <tr><td><code>section/gutter</code></td><td>40px</td><td>Horizontal page margin</td></tr>
+          </table>
+          <p>Using spacing in your designs: When building custom components or layouts, always use values from this scale. If a spacing value you need is not on the scale, round to the nearest value. Consistency matters more than precision at the pixel level.</p>
+        </section>
+
+        <section id="border-radius">
+          <h2>Border Radius</h2>
+          <table class="doc-table">
+            <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+            <tr><td><code>radius/sm</code></td><td>4px</td><td>Badges, tags, small chips</td></tr>
+            <tr><td><code>radius/md</code></td><td>8px</td><td>Buttons, inputs, small cards</td></tr>
+            <tr><td><code>radius/lg</code></td><td>12px</td><td>Feature cards, component cards</td></tr>
+            <tr><td><code>radius/xl</code></td><td>16px</td><td>Major containers, modals</td></tr>
+            <tr><td><code>radius/2xl</code></td><td>24px</td><td>Large featured sections</td></tr>
+            <tr><td><code>radius/full</code></td><td>9999px</td><td>Pills, avatar circles, toggles</td></tr>
+          </table>
+          <p><strong>The rule:</strong> Smaller, more interactive elements use smaller radii. Larger containers use larger radii. A button (radius/md) sits inside a card (radius/lg) which sits inside a section (radius/xl). The hierarchy of containment maps to the hierarchy of radius.</p>
+        </section>
+
+        <section id="shadows-elevation">
+          <h2>Shadows & Elevation</h2>
+          <p>Chisel UI uses a five-level elevation system. Higher numbers mean the element is visually closer to the user — more elevated, more important.</p>
+          <table class="doc-table">
+            <tr><th>Level</th><th>Token</th><th>Usage</th></tr>
+            <tr><td>1</td><td><code>elevation/1</code></td><td>Subtle lift — badges, tags, strip icons</td></tr>
+            <tr><td>2</td><td><code>elevation/2</code></td><td>Cards at rest</td></tr>
+            <tr><td>3</td><td><code>elevation/3</code></td><td>Nav bar, floating elements</td></tr>
+            <tr><td>4</td><td><code>elevation/4</code></td><td>Cards on hover, active cards</td></tr>
+            <tr><td>5</td><td><code>elevation/5</code></td><td>Modals, overlays, dropdowns</td></tr>
+          </table>
+          <h3>Dark mode shadows</h3>
+          <p>Shadows become stronger in dark mode to remain visible on dark backgrounds. The elevation tokens automatically adjust — you do not need to set separate shadow values for dark mode.</p>
+          <h3>The glow</h3>
+          <p>Chisel UI includes a single glow effect (<code>--glow</code>) using the gold accent color. This is used sparingly — only on the final CTA section and on the floating Figma pill button. Do not use the glow on every element.</p>
+        </section>
+
+        <section id="grid-layout">
+          <h2>Grid & Layout</h2>
+          <p><strong>Base unit:</strong> 8pt grid — all spacing, sizing, and layout decisions align to 8px.</p>
+          <h3>Column grids by screen size</h3>
+          <table class="doc-table">
+            <tr><th>Breakpoint</th><th>Columns</th><th>Gutter</th><th>Margin</th></tr>
+            <tr><td>320px (xs)</td><td>4</td><td>16px</td><td>16px</td></tr>
+            <tr><td>375px (sm)</td><td>4</td><td>16px</td><td>20px</td></tr>
+            <tr><td>768px (md)</td><td>8</td><td>24px</td><td>32px</td></tr>
+            <tr><td>1024px (lg)</td><td>12</td><td>24px</td><td>40px</td></tr>
+            <tr><td>1280px (xl)</td><td>12</td><td>32px</td><td>40px</td></tr>
+            <tr><td>1536px (2xl)</td><td>12</td><td>32px</td><td>80px</td></tr>
+          </table>
+          <h3>Max-width containers</h3>
+          <table class="doc-table">
+            <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+            <tr><td><code>max-width/hero</code></td><td>640px</td><td>Hero section inner content</td></tr>
+            <tr><td><code>max-width/narrow</code></td><td>700px</td><td>CTAs, quote sections, centered content</td></tr>
+            <tr><td><code>max-width/stats</code></td><td>800px</td><td>Stats bar</td></tr>
+            <tr><td><code>max-width/content</code></td><td>1200px</td><td>Standard page content</td></tr>
+          </table>
+          <p>Applying the grid in Figma: Select a frame, go to the Design panel on the right, click the + next to Layout Grid, and set it to a column grid using the values above. The Foundations page includes pre-built grid styles for each breakpoint — apply them from the Styles panel.</p>
+        </section>
+
+        <section id="iconography">
+          <h2>Iconography</h2>
+          <p>The icon set is included on the Icons page of the Figma file.</p>
+          <h3>Specifications</h3>
+          <ul>
+            <li>Frame size: 24px × 24px</li>
+            <li>Style: outlined, 1.5px stroke weight</li>
+            <li>Corner radius on strokes: rounded</li>
+            <li>All icons are components — do not detach them</li>
+          </ul>
+          <h3>Sizing</h3>
+          <p>Icons are designed at 24px but can be scaled to 16px or 20px while remaining legible. Do not use icons below 16px.</p>
+          <h3>Using icons in components</h3>
+          <p>All Chisel UI components that accept an icon use an instance swap property. Select the component, find the icon property in the component panel, and swap to any icon from the icon set.</p>
+          <h3>Adding icons to your own designs</h3>
+          <p>Go to the Icons page, find the icon you need, copy it (Cmd/Ctrl + C), and paste it into your file. If you have Chisel UI enabled as a team library, icons are also available in the Assets panel.</p>
+          <h3>Requesting a missing icon</h3>
+          <p>Open a GitHub issue with the label "icon request" and describe the icon needed. Include the use case and any reference examples.</p>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Tokens</span>
+        </div>
+
+        <section id="what-are-tokens">
+          <h2>What are design tokens</h2>
+          <p>Design tokens are named values that store design decisions. Instead of writing "the button background is #0F0E0C", you write "the button background is color/button/face". The token holds the actual value.</p>
+          <p>This matters because:</p>
+          <ul>
+            <li>When you change a token value, every element using that token updates automatically</li>
+            <li>Tokens make it possible to switch themes (light to dark, or custom brand) by swapping the values behind the names</li>
+            <li>Tokens create a shared language between design and development</li>
+          </ul>
+          <p>In Chisel UI, tokens are implemented as Figma Variables. Every color, spacing value, radius, and shadow in the system is a named token — nothing is hardcoded.</p>
+        </section>
+
+        <section id="token-naming">
+          <h2>Token naming structure</h2>
+          <p>All tokens follow this naming pattern:</p>
+          <p><code>[category] / [subcategory] / [variant]</code></p>
+          <p>Examples:</p>
+          <ul>
+            <li><code>color / bg / primary</code></li>
+            <li><code>color / text / muted</code></li>
+            <li><code>color / accent / gold</code></li>
+            <li><code>spacing / section / padding-md</code></li>
+            <li><code>radius / component / card</code></li>
+            <li><code>elevation / level / 2</code></li>
+            <li><code>motion / duration / base</code></li>
+            <li><code>motion / easing / spring</code></li>
+          </ul>
+          <p>The category is always the broadest grouping. The subcategory narrows the context. The variant specifies the exact use case.</p>
+        </section>
+
+        <section id="figma-variables">
+          <h2>Figma Variables</h2>
+          <p>All tokens are stored as Figma Variables in a collection called "Chisel UI Tokens." The collection has two modes: Light and Dark.</p>
+          <h3>Viewing variables</h3>
+          <p>Open the Variables panel from the right sidebar (click the grid icon) or from the main menu → Edit → Variables.</p>
+          <h3>Applying a variable to a property</h3>
+          <p>Select a layer, click the property you want to apply a variable to (e.g. Fill), then click the variable icon (4 dots) next to the value field. Choose from the token list.</p>
+          <h3>Switching modes</h3>
+          <p>Select a frame, go to the Design panel, find the Variable Mode section, and switch from Light to Dark. All token-bound properties update instantly.</p>
+          <div class="doc-callout doc-callout-warning">
+            <span class="material-symbols-outlined doc-callout-icon">warning</span>
+            <p>Variable modes only work if the property is bound to a variable. If you have overridden a property with a hardcoded value, mode switching will not affect it.</p>
+          </div>
+        </section>
+
+        <section id="token-categories">
+          <h2>Token categories</h2>
+          <h3>Color tokens</h3>
+          <table class="doc-table">
+            <tr><th>Category</th><th>Tokens</th><th>Description</th></tr>
+            <tr><td><code>color/bg</code></td><td>primary, secondary, tertiary, info, danger, success, warning</td><td>Background surfaces</td></tr>
+            <tr><td><code>color/text</code></td><td>primary, secondary, tertiary, info, danger, success, warning</td><td>Text colors</td></tr>
+            <tr><td><code>color/border</code></td><td>default, strong, info, danger, success, warning</td><td>Border colors</td></tr>
+            <tr><td><code>color/accent</code></td><td>gold, label</td><td>Brand accent colors</td></tr>
+            <tr><td><code>color/button</code></td><td>face, top, text, shadow, ghost-face, ghost-top, ghost-text, ghost-shadow</td><td>Button surface colors</td></tr>
+            <tr><td><code>color/glow</code></td><td>default</td><td>Gold glow effect</td></tr>
+            <tr><td><code>color/nav</code></td><td>bg</td><td>Navigation background</td></tr>
+            <tr><td><code>color/card</code></td><td>bg</td><td>Card background</td></tr>
+            <tr><td><code>color/surface</code></td><td>default, secondary</td><td>Content surface</td></tr>
+            <tr><td><code>color/tag</code></td><td>bg</td><td>Tag and badge background</td></tr>
+          </table>
+          <h3>Spacing tokens</h3>
+          <table class="doc-table">
+            <tr><th>Category</th><th>Tokens</th><th>Description</th></tr>
+            <tr><td><code>spacing</code></td><td>1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 30, 40</td><td>Base scale (4px–160px)</td></tr>
+            <tr><td><code>section/padding</code></td><td>sm, md, lg, xl</td><td>Section vertical paddings</td></tr>
+            <tr><td><code>section/gutter</code></td><td>default</td><td>Horizontal page margin</td></tr>
+          </table>
+          <h3>Radius tokens</h3>
+          <table class="doc-table">
+            <tr><th>Category</th><th>Tokens</th><th>Description</th></tr>
+            <tr><td><code>radius</code></td><td>sm, md, lg, xl, 2xl, full</td><td>Border radius scale</td></tr>
+          </table>
+          <h3>Elevation tokens</h3>
+          <table class="doc-table">
+            <tr><th>Category</th><th>Tokens</th><th>Description</th></tr>
+            <tr><td><code>elevation</code></td><td>1, 2, 3, 4, 5</td><td>Shadow levels</td></tr>
+            <tr><td><code>shadow</code></td><td>xs, sm, md, lg, xl</td><td>Raw shadow alpha values</td></tr>
+          </table>
+          <h3>Motion tokens</h3>
+          <table class="doc-table">
+            <tr><th>Category</th><th>Tokens</th><th>Description</th></tr>
+            <tr><td><code>motion/duration</code></td><td>fast (150ms), base (200ms), slow (300ms), slower (500ms)</td><td>Animation durations</td></tr>
+            <tr><td><code>motion/easing</code></td><td>default, in, out, linear, spring</td><td>Easing curves</td></tr>
+          </table>
+          <h3>Layout tokens</h3>
+          <table class="doc-table">
+            <tr><th>Category</th><th>Tokens</th><th>Description</th></tr>
+            <tr><td><code>max-width</code></td><td>hero, narrow, stats, content</td><td>Container max widths</td></tr>
+            <tr><td><code>z-index</code></td><td>base, glow, content, nav, overlay</td><td>Stacking order</td></tr>
+          </table>
+        </section>
+
+        <section id="customizing-tokens">
+          <h2>Customizing tokens</h2>
+          <p>To adapt Chisel UI to your brand without breaking the component structure:</p>
+          <p><strong>Step 1 —</strong> Open the Variables panel<br>In the Figma file, go to Edit → Variables. You will see the "Chisel UI Tokens" collection.</p>
+          <p><strong>Step 2 —</strong> Create a new mode<br>Click the + next to the existing modes. Name your new mode (e.g. "Brand Light").</p>
+          <p><strong>Step 3 —</strong> Override values<br>In your new mode column, click any token value to override it. Start with these core tokens:</p>
+          <ul>
+            <li><code>color/accent/gold</code> → your brand primary color</li>
+            <li><code>color/accent/label</code> → your brand primary color</li>
+            <li><code>color/bg/primary</code> → your background color</li>
+            <li><code>color/text/primary</code> → your primary text color</li>
+          </ul>
+          <p><strong>Step 4 —</strong> Apply your mode<br>Select any frame and switch its variable mode to your new brand mode. All components update instantly.</p>
+          <p><strong>Step 5 —</strong> Create a dark variant<br>Repeat steps 2–3 to create a "Brand Dark" mode.</p>
+          <div class="doc-callout doc-callout-warning">
+            <span class="material-symbols-outlined doc-callout-icon">warning</span>
+            <p>Do not change the token names — components are bound to token names, not values. Changing a name breaks the binding. Only change the values in each mode column.</p>
+          </div>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Components</span>
+        </div>
+
+        <section id="button">
+          <h2>Button</h2>
+          <p><strong>Overview</strong><br>Buttons trigger actions. They are the most used component in the system and come in three visual styles reflecting three levels of hierarchy: primary (most important), ghost (secondary), and gold (special/featured actions).</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By style:</strong></p>
+          <ul>
+            <li><strong>Primary</strong> — filled, high contrast. Use for the single most important action in a section.</li>
+            <li><strong>Ghost</strong> — outlined, lower contrast. Use for secondary actions alongside a primary button.</li>
+            <li><strong>Gold</strong> — gold gradient. Use sparingly for special actions: "Open in Figma", featured CTAs, premium actions.</li>
+            <li><strong>Icon</strong> — square, icon only. Use for compact toolbars or repeated actions where labels would clutter.</li>
+          </ul>
+          <p><strong>By size:</strong></p>
+          <ul>
+            <li><strong>Large (lg)</strong> — 48px height, 24px horizontal padding. Use in hero sections, major CTAs.</li>
+            <li><strong>Default</strong> — 40px height, 20px horizontal padding. Use in most contexts.</li>
+            <li><strong>Small (sm)</strong> — 32px height, 16px horizontal padding. Use in tight spaces, inline contexts, table rows.</li>
+          </ul>
+          <p><strong>By state:</strong></p>
+          <p>Default, Hover, Active (pressed), Focus, Disabled, Loading</p>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Style</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">primary</span> <span class="badge badge-default">ghost</span> <span class="badge badge-default">gold</span> <span class="badge badge-default">icon</span></td></tr>
+            <tr><td>Size</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">sm</span> <span class="badge badge-default">default</span> <span class="badge badge-default">lg</span></td></tr>
+            <tr><td>Label</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Icon Left</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Icon Right</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-default">Instance</span></td><td>swap any icon</td></tr>
+            <tr><td>Loading</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Disabled</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Use one primary button per section maximum. Pair primary with ghost for a two-button CTA. Use gold only for the most prominent action on the page. Use the large size in hero sections, default size everywhere else. Always include a text label unless it is an icon button in a toolbar.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't use more than one gold button per page. Don't use primary buttons for destructive actions — use a red-tinted ghost instead. Don't use icon buttons without a tooltip or aria-label. Don't use the loading state as a permanent state — it should resolve.</p>
+            </div>
+          </div>
+          
+          <h3>Anatomy</h3>
+          <p>The button is composed of: container frame (auto layout, horizontal), optional left icon instance, text label, optional right icon instance. The 3D surface effect is achieved with a two-stop gradient on the fill and an inner shadow on the container.</p>
+        </section>
+
+        <section id="input">
+          <h2>Input</h2>
+          <p><strong>Overview</strong><br>Text inputs collect user information. Chisel UI's input uses a minimal underline style by default, communicating precision and restraint. A full-border variant is available for contexts requiring a more traditional form appearance.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By style:</strong></p>
+          <ul>
+            <li><strong>Underline</strong> — bottom border only. Minimal, preferred style.</li>
+            <li><strong>Outlined</strong> — full border on all sides. Use when inputs appear in cards or panels where the underline would feel disconnected.</li>
+          </ul>
+          <p><strong>By state:</strong></p>
+          <p>Default, Hover, Focus, Filled, Error, Disabled</p>
+          <p><strong>By size:</strong></p>
+          <p>Default (40px height), Large (48px height)</p>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Style</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">underline</span> <span class="badge badge-default">outlined</span></td></tr>
+            <tr><td>Size</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">default</span> <span class="badge badge-default">lg</span></td></tr>
+            <tr><td>Label</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Placeholder</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Value</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>State</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">default</span> <span class="badge badge-default">focus</span> <span class="badge badge-default">filled</span> <span class="badge badge-default">error</span> <span class="badge badge-default">disabled</span></td></tr>
+            <tr><td>Icon Left</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Icon Right</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Helper text</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Error message</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Always include a visible label above the input. Use helper text to explain format requirements. Show error messages inline below the input. Use the outlined variant when inputs appear inside a card. Group related inputs with consistent spacing (24px gap).</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't use placeholder text as a substitute for a label. Don't show error state before the user has interacted with the field. Don't use the disabled state unless the field genuinely cannot be interacted with.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="badge">
+          <h2>Badge</h2>
+          <p><strong>Overview</strong><br>Badges are small labels used to communicate status, category, or metadata. They are always small, always uppercase, and always supplementary — never the primary carrier of information.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By style:</strong></p>
+          <ul>
+            <li><strong>Default</strong> — neutral, muted. Use for generic tags and metadata.</li>
+            <li><strong>Gold</strong> — brand accent. Use for premium or featured status.</li>
+            <li><strong>Success</strong> — green. Use for positive status (active, completed, verified).</li>
+            <li><strong>New</strong> — highlights newly added items.</li>
+            <li><strong>Updated</strong> — highlights recently modified items.</li>
+          </ul>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Style</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">default</span> <span class="badge badge-default">gold</span> <span class="badge badge-default">success</span> <span class="badge badge-default">new</span> <span class="badge badge-default">updated</span></td></tr>
+            <tr><td>Label</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-default">Instance</span></td><td>swap any icon</td></tr>
+            <tr><td>Dot</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Keep badge labels to 1–2 words maximum. Use badges to add metadata, not to replace a heading. Use the dot variant when space is extremely tight. Limit badges per element to 2 maximum.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't use badges as buttons. Don't use red/danger styling for badges — this pattern is reserved for alerts. Don't write badge labels in sentence case — always uppercase.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="toggle">
+          <h2>Toggle</h2>
+          <p><strong>Overview</strong><br>Toggles switch a setting between on and off. They represent an immediate action — the change takes effect the moment the toggle is switched, without requiring a save or confirm step.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By state:</strong></p>
+          <p>Off (default), On, Hover, Focus, Disabled Off, Disabled On</p>
+          <p><strong>By size:</strong></p>
+          <p>Default (24px height × 44px width), Small (18px height × 32px width)</p>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>State</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">off</span> <span class="badge badge-default">on</span> <span class="badge badge-default">disabled-off</span> <span class="badge badge-default">disabled-on</span></td></tr>
+            <tr><td>Size</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">default</span> <span class="badge badge-default">sm</span></td></tr>
+            <tr><td>Label</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Label content</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Description</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Always pair a toggle with a clear label. Use a toggle only for settings that take immediate effect. Add a description below the label if the consequence isn't obvious. Place the label to the right of or above the toggle.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't use a toggle in place of a checkbox in a form that requires saving. Don't use a toggle for binary choices between two named options. Don't use the toggle's on-color for anything other than the active state.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="tabs">
+          <h2>Tabs</h2>
+          <p><strong>Overview</strong><br>Tabs organize content into sections within the same context. They are used when content belongs together but needs to be separated to reduce cognitive load.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By style:</strong></p>
+          <ul>
+            <li><strong>Underline</strong> — active tab indicated by a bottom border. Minimal, preferred.</li>
+            <li><strong>Pill</strong> — active tab has a filled pill background. Use in sidebars or cards.</li>
+            <li><strong>Segmented</strong> — all tabs enclosed in a container, active tab fills its slot. Use for binary or small-set choices.</li>
+          </ul>
+          <p><strong>By state:</strong></p>
+          <p>Default, Active, Hover, Disabled</p>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Style</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">underline</span> <span class="badge badge-default">pill</span> <span class="badge badge-default">segmented</span></td></tr>
+            <tr><td>Tab count</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">2</span> <span class="badge badge-default">3</span> <span class="badge badge-default">4</span> <span class="badge badge-default">5</span></td></tr>
+            <tr><td>Active tab</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">1</span> <span class="badge badge-default">2</span> <span class="badge badge-default">3</span> <span class="badge badge-default">4</span> <span class="badge badge-default">5</span></td></tr>
+            <tr><td>Labels</td><td><span class="badge badge-info">Text</span></td><td>per-tab text override</td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Badge</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Use tabs when content sections are roughly equal in importance. Keep tab labels to 1–2 words. Use the underline style as the default. Show the most important or default tab active on load. Use the badge variant to show counts.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't use tabs for navigation between different pages. Don't use more than 5 tabs. Don't use tabs for sequential steps — use a stepper instead. Don't mix tab styles within the same product.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="card">
+          <h2>Card</h2>
+          <p><strong>Overview</strong><br>Cards group related information and actions into a contained surface. They are one of the most flexible components in the system.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By style:</strong></p>
+          <ul>
+            <li><strong>Default</strong> — flat card with border and subtle shadow</li>
+            <li><strong>Elevated</strong> — stronger shadow, no visible border</li>
+            <li><strong>Ghost</strong> — border only, no background fill</li>
+            <li><strong>Featured</strong> — accent border-top, slightly stronger surface</li>
+          </ul>
+          <p><strong>By content layout:</strong></p>
+          <ul>
+            <li><strong>Horizontal</strong> — image/media on left, content on right</li>
+            <li><strong>Vertical</strong> — image/media on top, content below (default)</li>
+            <li><strong>Content only</strong> — no image/media slot</li>
+          </ul>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Style</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">default</span> <span class="badge badge-default">elevated</span> <span class="badge badge-default">ghost</span> <span class="badge badge-default">featured</span></td></tr>
+            <tr><td>Layout</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">vertical</span> <span class="badge badge-default">horizontal</span> <span class="badge badge-default">content-only</span></td></tr>
+            <tr><td>Media</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Media type</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">image</span> <span class="badge badge-default">icon</span> <span class="badge badge-default">illustration</span></td></tr>
+            <tr><td>Eyebrow</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Title</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Description</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Badge</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Actions</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Use cards in grids with consistent column counts (2, 3, or 4 columns). Keep card content consistent across a grid. Use the featured variant to highlight one card in a grid. Use the ghost variant for interactive selection states.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't nest cards inside cards. Don't use cards as navigation items. Don't put more than two actions in a single card.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="list">
+          <h2>List</h2>
+          <p><strong>Overview</strong><br>Lists display a series of related items in a vertical stack. They are used for navigation menus, settings panels, search results.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By style:</strong></p>
+          <ul>
+            <li><strong>Default</strong> — item with label and optional supporting text</li>
+            <li><strong>Navigation</strong> — item with icon, label, and optional badge. Used in sidebars.</li>
+            <li><strong>Settings</strong> — item with label, description, and a control (toggle, badge, or chevron) on the right</li>
+            <li><strong>Data</strong> — item with label on left and value on right. Used for key-value displays.</li>
+          </ul>
+          <p><strong>By state:</strong></p>
+          <p>Default, Hover, Active, Disabled</p>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Style</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">default</span> <span class="badge badge-default">navigation</span> <span class="badge badge-default">settings</span> <span class="badge badge-default">data</span></td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-default">Instance</span></td><td>swap any icon</td></tr>
+            <tr><td>Label</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Supporting text</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Right element</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">none</span> <span class="badge badge-default">badge</span> <span class="badge badge-default">toggle</span> <span class="badge badge-default">chevron</span> <span class="badge badge-default">value</span></td></tr>
+            <tr><td>Divider</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Active</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Disabled</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Use the navigation style for sidebar menus. Use the settings style for configuration screens. Use the data style for profile details, order summaries. Add dividers between logically distinct groups of items.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't use a list for content that would be better as a table. Don't mix list styles within the same list. Don't use the active state on more than one item at a time in a navigation list.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="modal">
+          <h2>Modal</h2>
+          <p><strong>Overview</strong><br>Modals interrupt the current context to present critical information or require a decision. Because they block the rest of the interface, they should be used only when the action or information genuinely requires focused attention.</p>
+          
+          <h3>Variants</h3>
+          <p><strong>By size:</strong></p>
+          <ul>
+            <li><strong>Default</strong> — 760px max width. Standard modal for most use cases.</li>
+            <li><strong>Large</strong> — 960px max width. Use for content-heavy modals like component previews.</li>
+            <li><strong>Small</strong> — 480px max width. Use for simple confirmations or alerts.</li>
+          </ul>
+          <p><strong>By type:</strong></p>
+          <ul>
+            <li><strong>Content</strong> — title, body content, optional footer with actions</li>
+            <li><strong>Confirmation</strong> — title, short description, two actions (confirm + cancel)</li>
+            <li><strong>Alert</strong> — title, description, icon, single action</li>
+            <li><strong>Component preview</strong> — full preview header, metadata, showcase (Chisel UI specific)</li>
+          </ul>
+          
+          <h3>Component properties</h3>
+          <table class="doc-table">
+            <tr><th>Property</th><th>Type</th><th>Values</th></tr>
+            <tr><td>Size</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">sm</span> <span class="badge badge-default">default</span> <span class="badge badge-default">lg</span></td></tr>
+            <tr><td>Type</td><td><span class="badge badge-gold">Variant</span></td><td><span class="badge badge-default">content</span> <span class="badge badge-default">confirmation</span> <span class="badge badge-default">alert</span> <span class="badge badge-default">preview</span></td></tr>
+            <tr><td>Title</td><td><span class="badge badge-info">Text</span></td><td>any string</td></tr>
+            <tr><td>Description</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Icon</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+            <tr><td>Footer</td><td><span class="badge badge-info">Boolean</span></td><td><span class="badge badge-default">true</span> <span class="badge badge-default">false</span></td></tr>
+          </table>
+          
+          <h3>Usage guidelines</h3>
+          <div class="doc-do-dont">
+            <div class="doc-do">
+              <div class="doc-do-label">Do</div>
+              <p class="doc-do-desc">Keep modal titles to one line. Keep modal content focused — one purpose per modal. Always provide a clear way to dismiss. Use the small/confirmation variant for destructive action confirmations. Trap keyboard focus inside the modal while it is open.</p>
+            </div>
+            <div class="doc-dont">
+              <div class="doc-dont-label">Don't</div>
+              <p class="doc-dont-desc">Don't open a modal from inside a modal. Don't use modals for non-critical information. Don't put long scrolling content in a modal. Don't auto-open modals on page load.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Patterns</span>
+        </div>
+
+        <section id="form-patterns">
+          <h2>Form patterns</h2>
+          <h3>Login form</h3>
+          <p>Components: Input (email) + Input (password) + Button (primary, lg) + Button (ghost, sm for "Forgot password")</p>
+          <p>Use a 400px max-width container, centered. Vertical stack with 24px gap between fields, 32px gap before the primary button.</p>
+          
+          <h3>Search bar</h3>
+          <p>Components: Input (outlined, with icon-left slot) + Button (primary or icon)</p>
+          <p>Use a full-width layout. The input takes remaining space, the button is fixed width. Add a keyboard shortcut hint (⌘K) in the placeholder.</p>
+          
+          <h3>Settings row</h3>
+          <p>Components: List (settings style) with Toggle as the right element</p>
+          <p>Stack multiple settings rows in a list. Group related settings under a section label (Orbitron, 10px, uppercase). Add a divider between groups.</p>
+        </section>
+
+        <section id="navigation-patterns">
+          <h2>Navigation patterns</h2>
+          <h3>Top navigation</h3>
+          <p>Components: Nav logo + List (navigation style, horizontal) + Button group (ghost + primary)</p>
+          <p>Fixed position at top. Use backdrop-filter: blur(12px) for the frosted glass effect. Max-width 1200px centered inner content.</p>
+          
+          <h3>Sidebar navigation</h3>
+          <p>Components: Logo + List (navigation style, vertical) + Badge for counts</p>
+          <p>Fixed left, 240px width. Group items under section labels. Active item has left border accent in --accent2. Collapse to icons-only on smaller screens.</p>
+          
+          <h3>Tab bar (mobile)</h3>
+          <p>Components: Tabs (underline or pill style)</p>
+          <p>Fixed at bottom of screen on mobile. 3–5 items maximum. Icons with labels below. Active state uses --accent2.</p>
+        </section>
+
+        <section id="feedback-patterns">
+          <h2>Feedback patterns</h2>
+          <h3>Empty state</h3>
+          <p>Components: Icon (48px, --text3) + Heading (Audiowide, 18px) + Description (DM Sans, 14px, --text2) + optional Button</p>
+          <p>Center all elements. Use a muted icon relevant to the context. Keep the heading under 5 words.</p>
+          
+          <h3>Loading state</h3>
+          <p>Components: Skeleton cards (same dimensions as real cards) with animated shimmer</p>
+          <p>Use --surface2 for shimmer base color. Animate using a moving gradient from left to right, 1.5s loop.</p>
+          
+          <h3>Error state</h3>
+          <p>Components: Icon (red, 24px) + Heading + Description + Button (retry action)</p>
+          <p>Use --color-danger for the icon. Keep the description specific about what went wrong and what the user can do.</p>
+          
+          <h3>Success confirmation</h3>
+          <p>Components: Icon (success, 24px) + Heading + Description + optional Button</p>
+          <p>Use --color-success for the icon. Keep the heading positive and specific. Auto-dismiss after 4 seconds if it is a toast.</p>
+        </section>
+
+        <section id="content-patterns">
+          <h2>Content patterns</h2>
+          <h3>Card grid</h3>
+          <p>2, 3, or 4 columns depending on screen width. All cards in a grid must be the same variant. Consistent gap (24px at desktop, 16px at mobile). If one card has an image, all cards should.</p>
+          
+          <h3>List view</h3>
+          <p>Full-width rows with a left thumbnail, middle content, and right action. Consistent row height (64px with thumbnail, 48px without). Alternating row backgrounds are optional — use --surface and --bg for alternation.</p>
+          
+          <h3>Stats display</h3>
+          <p>Horizontal row of 3–4 stat items with vertical dividers between them. Each stat: large number (Audiowide) above a short label (Orbitron, uppercase). Center-aligned. Max-width 800px.</p>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Theming</span>
+        </div>
+
+        <section id="built-in-themes">
+          <h2>Built-in themes</h2>
+          <p>Chisel UI ships with two themes: Light and Dark.</p>
+          <h3>Light theme defaults</h3>
+          <ul>
+            <li>Background: #F7F7F7</li>
+            <li>Surface: #FFFFFF</li>
+            <li>Text: #1A1A1A</li>
+            <li>Accent: #C8A96E</li>
+          </ul>
+          <h3>Dark theme defaults</h3>
+          <ul>
+            <li>Background: #0A0908</li>
+            <li>Surface: #151412</li>
+            <li>Text: #F2EFE8</li>
+            <li>Accent: #C8A96E</li>
+          </ul>
+          <p>Both themes are defined as variable modes in the "Chisel UI Tokens" collection. Every component uses these tokens — switching the mode on a frame applies the correct theme to every component inside it instantly.</p>
+        </section>
+
+        <section id="custom-theme">
+          <h2>Creating a custom theme</h2>
+          <p><strong>Step 1 —</strong> Duplicate the token page<br>Make a copy of the Tokens page in the Figma file. Name it "Brand Tokens" or similar.</p>
+          <p><strong>Step 2 —</strong> Open Variables<br>Edit → Variables → Chisel UI Tokens collection.</p>
+          <p><strong>Step 3 —</strong> Add a new mode<br>Click the + button next to the existing Light and Dark modes. Name it after your brand.</p>
+          <p><strong>Step 4 —</strong> Override these core tokens first</p>
+          <table class="doc-table">
+            <tr><th>Token</th><th>What to change</th></tr>
+            <tr><td><code>color/bg/primary</code></td><td>Your background color</td></tr>
+            <tr><td><code>color/text/primary</code></td><td>Your primary text color</td></tr>
+            <tr><td><code>color/accent/gold</code></td><td>Your brand primary color</td></tr>
+            <tr><td><code>color/accent/label</code></td><td>Your brand primary color</td></tr>
+            <tr><td><code>color/card/bg</code></td><td>Your card surface color</td></tr>
+          </table>
+          <p><strong>Step 5 —</strong> Test on a frame<br>Select a full-page frame, switch to your new mode, and review. Fix any tokens that look wrong. Repeat until the theme feels consistent.</p>
+          <p><strong>Step 6 —</strong> Typography (optional)<br>If you want to change the typefaces, go to the text styles panel and update the font-family for each style.</p>
+        </section>
+
+        <section id="what-to-keep">
+          <h2>What to keep</h2>
+          <p>When customizing the theme, keep these unchanged for best results:</p>
+          <ul>
+            <li><strong>Spacing scale</strong> — changing spacing breaks component proportions</li>
+            <li><strong>Border radius scale</strong> — changing this inconsistently creates visual noise</li>
+            <li><strong>Elevation values</strong> — these are calibrated for both light and dark mode</li>
+            <li><strong>Motion tokens</strong> — consistent timing is what makes interactions feel considered</li>
+          </ul>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Contributing</span>
+        </div>
+
+        <section id="requesting-component">
+          <h2>Requesting a component</h2>
+          <p>To request a new component, open a GitHub issue with:</p>
+          <ul>
+            <li>The component name</li>
+            <li>The use case — where you would use it and why existing components don't work</li>
+            <li>The variants you need</li>
+            <li>Any reference examples from other systems (Figma files, screenshots, URLs)</li>
+          </ul>
+          <p>Requests with clear use cases and reference examples are prioritized.</p>
+        </section>
+
+        <section id="reporting-bug">
+          <h2>Reporting a bug</h2>
+          <p>A bug in the context of a Figma library means: a component that does not behave as documented, a token that is not applied correctly, a variant that is missing, or a dark mode inconsistency.</p>
+          <p>To report: open a GitHub issue with:</p>
+          <ul>
+            <li>Component name</li>
+            <li>What is expected</li>
+            <li>What is actually happening</li>
+            <li>Screenshot</li>
+          </ul>
+        </section>
+
+        <section id="roadmap">
+          <h2>Roadmap</h2>
+          <h3>Coming in v1.1.0</h3>
+          <ul>
+            <li>Select / Dropdown component</li>
+            <li>Tooltip component</li>
+            <li>Breadcrumb component</li>
+            <li>Notification / Toast component</li>
+            <li>Avatar component</li>
+            <li>Progress bar component</li>
+            <li>Additional icon set expansion (40+ new icons)</li>
+          </ul>
+          <h3>Coming in v1.2.0</h3>
+          <ul>
+            <li>Table component</li>
+            <li>Date picker component</li>
+            <li>Accordion component</li>
+            <li>Drawer component</li>
+            <li>Command palette component</li>
+            <li>Additional page templates (blog, e-commerce, onboarding)</li>
+          </ul>
+          <h3>Under consideration</h3>
+          <ul>
+            <li>Chart and data visualization components</li>
+            <li>Code-ready export in partnership with a React component library</li>
+            <li>Figma plugin for faster token customization</li>
+          </ul>
+        </section>
+
+        <div class="doc-section-break">
+          <span class="doc-section-break-label">Reference</span>
+        </div>
+
+        <section id="changelog">
+          <h2>Changelog</h2>
+          <h3>v1.0.0 — April 2026</h3>
+          <p><strong>Initial public release.</strong></p>
+          <p>Added:</p>
+          <ul>
+            <li>8 components: Button (6 variants), Input (2 variants), Badge (5 variants), Toggle (2 sizes), Tabs (3 styles), Card (4 styles), List (4 styles), Modal (4 types)</li>
+            <li>Full token system: color, typography, spacing, radius, elevation, motion, layout</li>
+            <li>Light and dark mode via Figma Variables</li>
+            <li>Auto layout on every component</li>
+            <li>Icon set: 80 icons across 8 categories</li>
+            <li>6 page templates</li>
+            <li>Documentation site</li>
+          </ul>
+        </section>
+
+        <section id="faq">
+          <h2>FAQ</h2>
+          <h3>Can I use Chisel UI for commercial client work?</h3>
+          <p>Yes. The license allows use in any personal or commercial project. You may not resell the Figma file itself or repackage it as a competing component library.</p>
+          
+          <h3>Does Chisel UI work on the Figma free plan?</h3>
+          <p>All components work on the free plan. Variable Modes (for switching between light and dark mode) require a paid Figma plan. On the free plan, components open in their default light mode.</p>
+          
+          <h3>Can I use components without the token system?</h3>
+          <p>Yes, but you lose the ability to switch themes with a single click and any token overrides you make will be hardcoded. You will also lose the connection to any future token updates. Recommended only if you are not using Figma Variables.</p>
+          
+          <h3>How do I update my file when Chisel UI releases a new version?</h3>
+          <p>If you have Chisel UI enabled as a team library, Figma will notify you when updates are available. Click "Review updates" to see what changed and accept the updates. If you duplicated the file to your personal drafts, you will need to manually re-duplicate the new version and migrate your work.</p>
+          
+          <h3>Can I mix Chisel UI with other component libraries?</h3>
+          <p>Yes. There is no technical conflict. Style conflicts may occur if another library uses the same variable names — rename one set to avoid collisions.</p>
+          
+          <h3>Is there a React or code version coming?</h3>
+          <p>It is on the roadmap but not yet scheduled. Follow the GitHub repository for updates.</p>
+          
+          <h3>What if the component I need does not exist yet?</h3>
+          <p>Use the Foundations — build your component using the spacing scale, color tokens, radius tokens, and type scale. It will feel native to the system. Submit a component request on GitHub so it can be added in a future release.</p>
+          
+          <h3>Can I detach components?</h3>
+          <p>Yes, but with caution. Detaching breaks the connection to the library — the component will no longer receive updates and you cannot swap variants. Only detach if you need to make structural changes that cannot be done through component properties. Always detach a copy, not the original.</p>
+          
+          <h3>What fonts do I need to install?</h3>
+          <p>Audiowide, Orbitron, and DM Sans — all free on Google Fonts. Install them locally before opening the Figma file, otherwise Figma will substitute a fallback font and the layouts will break.</p>
+        </section>
+
+        <div class="doc-pagination">
+          <a href="index.html" class="doc-pagination-item doc-pagination-prev">
+            <span class="doc-pagination-label">← Previous</span>
+            <span class="doc-pagination-title">Home</span>
+          </a>
+          <a href="components.html" class="doc-pagination-item doc-pagination-next">
+            <span class="doc-pagination-label">Next →</span>
+            <span class="doc-pagination-title">Components</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <nav class="doc-toc" id="docToc">
+      <span class="doc-toc-label">On this page</span>
+      <div class="doc-toc-list" id="docTocList"></div>
+      <div class="doc-toc-quicklinks">
+        <a href="#" class="doc-toc-quicklink">Figma File ↗</a>
+        <a href="#changelog" class="doc-toc-quicklink">Changelog</a>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    function buildTOC() {
+      const headings = document.querySelectorAll('#docContent h2, #docContent h3');
+      const toc = document.getElementById('docTocList');
+      
+      headings.forEach((heading, i) => {
+        const id = heading.id || heading.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        heading.id = id;
+
+        const item = document.createElement('a');
+        item.href = '#' + id;
+        item.className = 'doc-toc-item' + (heading.tagName === 'H3' ? ' doc-toc-sub' : '');
+        item.textContent = heading.textContent;
+        toc.appendChild(item);
+      });
+    }
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const tocItem = document.querySelector('.doc-toc-item[href="#' + id + '"]');
+        if (tocItem) tocItem.classList.toggle('active', entry.isIntersecting);
+      });
+    }, { rootMargin: '-80px 0px -70% 0px' });
+
+    document.querySelectorAll('#docContent h2, #docContent h3').forEach(h => tocObserver.observe(h));
+
+    document.querySelectorAll('.doc-nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        document.querySelectorAll('.doc-nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        
+        if (window.innerWidth <= 768) {
+          document.getElementById('docSidebar').classList.remove('open');
+          document.getElementById('docSidebarBackdrop').classList.remove('open');
+        }
+      });
+    });
+
+    document.getElementById('docMenuToggle').addEventListener('click', () => {
+      document.getElementById('docSidebar').classList.toggle('open');
+      document.getElementById('docSidebarBackdrop').classList.toggle('open');
+    });
+
+    document.getElementById('docSidebarBackdrop').addEventListener('click', () => {
+      document.getElementById('docSidebar').classList.remove('open');
+      document.getElementById('docSidebarBackdrop').classList.remove('open');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('docSearchInput').focus();
+      }
+    });
+
+    document.querySelectorAll('.doc-code').forEach(block => {
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'doc-code-copy';
+      copyBtn.textContent = 'COPY';
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('pre').textContent;
+        navigator.clipboard.writeText(code);
+        copyBtn.textContent = 'COPIED';
+        setTimeout(() => copyBtn.textContent = 'COPY', 2000);
+      });
+      block.appendChild(copyBtn);
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'light';
+      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+    });
+
+    const docSearchInput = document.getElementById('docSearchInput');
+    const docNavItems = document.querySelectorAll('.doc-nav-item');
+
+    docSearchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      docNavItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(term) ? 'block' : 'none';
+      });
+    });
+
+    buildTOC();
+  </script>
+</body>
+
+</html>

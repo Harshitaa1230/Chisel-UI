@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Components — CHISEL UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;500&family=DM+Sans:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cursor-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: var(--z-glow);
+    }
+
+    .figma-pill {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      z-index: 90;
+      background: var(--accent2);
+      color: var(--bg);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      box-shadow: var(--elevation-3), 0 0 20px var(--glow);
+      cursor: pointer;
+      transition: transform var(--duration-base) var(--ease-spring),
+                  box-shadow var(--duration-base) var(--ease-out);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .figma-pill:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: var(--elevation-4), 0 0 32px var(--glow);
+    }
+
+    .figma-pill .material-symbols-outlined {
+      font-size: 14px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 68px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 68px);
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      z-index: 50;
+      padding-bottom: var(--space-10);
+    }
+
+    .sidebar-logo {
+      padding: var(--space-5) var(--space-4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo a {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .sidebar-logo a span {
+      color: var(--accent2);
+    }
+
+    .sidebar-search {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-search-wrap {
+      position: relative;
+    }
+
+    .sidebar-search input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3);
+      padding-right: var(--space-10);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--duration-fast) var(--ease-out),
+                  box-shadow var(--duration-fast) var(--ease-out);
+    }
+
+    .sidebar-search input::placeholder {
+      color: var(--text3);
+    }
+
+    .sidebar-search input:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .sidebar-search input.kb-focus {
+      outline: 2px solid var(--accent2);
+      outline-offset: 2px;
+    }
+
+    .sidebar-search .kb-hint {
+      position: absolute;
+      right: var(--space-2);
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+      background: var(--surface2);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .sidebar-search .clear-btn {
+      position: absolute;
+      right: var(--space-8);
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text3);
+      cursor: pointer;
+      padding: var(--space-1);
+      display: none;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .sidebar-search .clear-btn.visible {
+      display: block;
+    }
+
+    .sidebar-section {
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      padding: 0 var(--space-4);
+      margin-bottom: var(--space-2);
+    }
+
+    .sidebar-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-2) var(--space-4);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text2);
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out);
+      border-left: 2px solid transparent;
+    }
+
+    .sidebar-item:hover {
+      background: var(--surface2);
+      color: var(--text);
+      border-radius: var(--radius-md);
+    }
+
+    .sidebar-item.active {
+      border-left-color: var(--accent2);
+      color: var(--accent2);
+      background: var(--surface);
+    }
+
+    .sidebar-item .count {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+    }
+
+    .sidebar-item .badge-new {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 8px;
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      margin-left: var(--space-2);
+    }
+
+    .sidebar-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-2) var(--space-4);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .sidebar-link:hover {
+      color: var(--accent2);
+    }
+
+    .sidebar-link .material-symbols-outlined {
+      font-size: 14px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      margin-left: 240px;
+      padding: var(--space-10);
+      padding-bottom: var(--space-20);
+      min-height: calc(100vh - 68px);
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .page-header-left .eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: var(--space-2);
+    }
+
+    .page-header-left h1 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--text);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: var(--space-2);
+    }
+
+    .page-header-left .desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text2);
+    }
+
+    .page-header-right {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      position: sticky;
+      top: 68px;
+      z-index: 50;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-3) 0;
+    }
+
+    .filter-bar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: var(--space-2);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .filter-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-pill {
+      flex-shrink: 0;
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--text2);
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-out),
+                  color var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .filter-pill:hover {
+      background: var(--surface2);
+      color: var(--text);
+    }
+
+    .filter-pill.active {
+      background: var(--accent2);
+      color: var(--bg);
+      border-color: var(--accent2);
+    }
+
+    .view-controls {
+      display: flex;
+      gap: var(--space-2);
+      flex-shrink: 0;
+    }
+
+    .view-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: transparent;
+      color: var(--text3);
+      cursor: pointer;
+      transition: color var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out),
+                  background var(--duration-fast) var(--ease-out);
+    }
+
+    .view-btn:hover {
+      background: var(--surface2);
+      color: var(--text);
+    }
+
+    .view-btn.active {
+      color: var(--accent2);
+      border-color: var(--accent2);
+    }
+
+    .view-btn .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    /* ── COMPONENT GRID ── */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+    }
+
+    .comp-grid.list-view {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    @media (max-width: 1280px) {
+      .comp-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .comp-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .comp-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CATEGORY SECTION ── */
+    .category-section {
+      grid-column: 1 / -1;
+      position: sticky;
+      top: 108px;
+      z-index: 40;
+      background: var(--bg);
+      padding: var(--space-2) 0;
+      margin-top: var(--space-12);
+    }
+
+    .category-section:first-child {
+      margin-top: 0;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .category-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      white-space: nowrap;
+    }
+
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .category-count {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+    }
+
+    /* ── COMPONENT CARD ── */
+    .comp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--duration-base) var(--ease-out),
+                  box-shadow var(--duration-base) var(--ease-out),
+                  border-color var(--duration-base) var(--ease-out);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .comp-card {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: cardIn 400ms var(--ease-out) forwards;
+      }
+
+      @keyframes cardIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    .comp-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--elevation-4);
+      border-color: var(--accent2);
+    }
+
+    .comp-card.hidden {
+      opacity: 0.2;
+      pointer-events: none;
+      transform: scale(0.97);
+    }
+
+    .comp-card.hiding {
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 150ms ease, transform 150ms ease;
+      pointer-events: none;
+    }
+
+    .comp-card-preview {
+      height: 200px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comp-card-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform var(--duration-slow) var(--ease-out);
+    }
+
+    .comp-card:hover .comp-card-preview img {
+      transform: scale(1.03);
+    }
+
+    .comp-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 9, 8, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .comp-card:hover .comp-card-overlay {
+      opacity: 1;
+    }
+
+    .comp-card-overlay .btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      font-size: 10px;
+    }
+
+    .comp-card-overlay .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+    }
+
+    .comp-card-badges {
+      position: absolute;
+      bottom: var(--space-3);
+      left: var(--space-3);
+      right: var(--space-3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .comp-card-body {
+      padding: var(--space-4) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .comp-card-category {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+    }
+
+    .comp-card-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .comp-card-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* ── LIST VIEW CARD ── */
+    .comp-card-list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-4);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: background var(--duration-fast) var(--ease-out),
+                  border-color var(--duration-fast) var(--ease-out);
+    }
+
+    .comp-card-list:hover {
+      background: var(--surface2);
+      border-color: var(--accent2);
+    }
+
+    .comp-card-list-thumb {
+      width: 64px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .comp-card-list-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .comp-card-list-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .comp-card-list-category {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      width: 100px;
+    }
+
+    .comp-card-list-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text3);
+      width: 160px;
+    }
+
+    .comp-card-list-action {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .comp-card-list:hover .comp-card-list-action {
+      color: var(--accent2);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: var(--space-20) var(--space-10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      color: var(--text3);
+      margin-bottom: var(--space-2);
+    }
+
+    .empty-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    .empty-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text3);
+    }
+
+    /* ── MOBILE SIDEBAR DRAWER ── */
+    .sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 140;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-base) var(--ease-out);
+    }
+
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .drawer-handle {
+      width: 32px;
+      height: 4px;
+      background: var(--border);
+      border-radius: var(--radius-full);
+      margin: var(--space-3) auto var(--space-4);
+    }
+
+    .mobile-filter-btn {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        width: 100%;
+        height: 80vh;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        transform: translateY(100%);
+        transition: transform var(--duration-slow) var(--ease-out);
+        z-index: 150;
+        border-right: none;
+        border-top: 1px solid var(--border);
+      }
+
+      .sidebar.open {
+        transform: translateY(0);
+      }
+
+      .sidebar-logo {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: var(--space-4);
+        padding-bottom: calc(var(--space-20) + 60px);
+      }
+
+      .mobile-filter-btn {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-4);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-full);
+        background: transparent;
+        color: var(--text2);
+        font-family: 'Orbitron', sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+      }
+
+      .mobile-filter-btn:hover {
+        background: var(--surface2);
+      }
+
+      .mobile-nav {
+        display: block;
+      }
+
+      .figma-pill {
+        bottom: calc(60px + var(--space-4));
+      }
+    }
+
+    /* Component Detail Modal */
+    .detail-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--duration-base) var(--ease-out);
+      padding: var(--space-4);
+    }
+
+    .detail-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .detail-modal {
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--elevation-4);
+      transform: translateY(20px) scale(0.95);
+      transition: transform var(--duration-base) var(--ease-out);
+    }
+
+    .detail-modal-backdrop.open .detail-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .detail-modal-header {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .detail-modal-header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-modal-header .detail-cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+    }
+
+    .detail-modal-close {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--duration-fast);
+    }
+
+    .detail-modal-close:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .detail-modal-close .material-symbols-outlined {
+      font-size: 24px;
+    }
+
+    .detail-modal-badges {
+      position: absolute;
+      bottom: var(--space-4);
+      left: var(--space-4);
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .detail-modal-content {
+      padding: var(--space-6);
+    }
+
+    .detail-modal-category {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent2);
+      margin-bottom: var(--space-2);
+    }
+
+    .detail-modal-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: clamp(24px, 4vw, 32px);
+      color: var(--text);
+      margin: 0;
+    }
+
+    .detail-modal-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .detail-figma-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      text-decoration: none;
+      transition: color var(--duration-fast);
+      flex-shrink: 0;
+    }
+
+    .detail-figma-link:hover {
+      color: var(--text);
+    }
+
+    .detail-figma-link svg {
+      width: 14px;
+      height: 18px;
+    }
+
+    .detail-modal-meta {
+      display: flex;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .detail-meta-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text3);
+    }
+
+    .detail-meta-value {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .detail-modal-video {
+      margin-bottom: var(--space-6);
+    }
+
+    .detail-video-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text3);
+      margin-bottom: var(--space-3);
+    }
+
+    .detail-video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--surface2);
+    }
+
+    .detail-video-wrapper iframe,
+    .detail-video-wrapper video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .detail-video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text3);
+      gap: var(--space-3);
+    }
+
+    .detail-video-placeholder .material-symbols-outlined {
+      font-size: 48px;
+    }
+
+    .detail-video-placeholder span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+    }
+
+    .detail-modal-actions {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .detail-modal-actions .btn {
+      flex: 1;
+      min-width: 150px;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- Navigation -->
+  <nav aria-label="Main navigation">
+    <a class="nav-logo" href="index.html">CHISEL<span>.</span>UI</a>
+    <ul class="nav-links">
+      <li><a href="components.html" class="active">Components</a></li>
+      <li><a href="docs.html">Documentation</a></li>
+      <li><a href="#">Figma Kit</a></li>
+      <li><a href="#">Changelog</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+      </button>
+      <a href="#" class="btn btn-primary btn-sm">Open in Figma</a>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html">CHISEL<span>.</span>UI</a>
+    </div>
+
+    <div class="sidebar-search">
+      <div class="sidebar-search-wrap">
+        <input type="text" id="searchInput" placeholder="Search..." aria-label="Search components">
+        <span class="kb-hint">⌘K</span>
+        <button class="clear-btn" id="clearSearch" aria-label="Clear search">×</button>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Browse</div>
+      <div class="sidebar-item active" data-category="all">
+        <span>All Components</span>
+        <span class="count">47</span>
+      </div>
+      <div class="sidebar-item" data-category="new">
+        <span>New</span>
+        <span class="badge-new">6 NEW</span>
+      </div>
+      <div class="sidebar-item" data-category="updated">
+        <span>Recently Updated</span>
+        <span class="count">4</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Categories</div>
+      <div class="sidebar-item" data-category="forms">
+        <span>Forms</span>
+        <span class="count">12</span>
+      </div>
+      <div class="sidebar-item" data-category="navigation">
+        <span>Navigation</span>
+        <span class="count">8</span>
+      </div>
+      <div class="sidebar-item" data-category="feedback">
+        <span>Feedback</span>
+        <span class="count">6</span>
+      </div>
+      <div class="sidebar-item" data-category="data display">
+        <span>Data Display</span>
+        <span class="count">9</span>
+      </div>
+      <div class="sidebar-item" data-category="layout">
+        <span>Layout</span>
+        <span class="count">5</span>
+      </div>
+      <div class="sidebar-item" data-category="overlays">
+        <span>Overlays</span>
+        <span class="count">4</span>
+      </div>
+      <div class="sidebar-item" data-category="typography">
+        <span>Typography</span>
+        <span class="count">3</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Figma Kit</div>
+      <a href="#" class="sidebar-link">
+        <span>Open Figma file</span>
+        <span class="material-symbols-outlined">arrow_outward</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <span>Documentation</span>
+        <span class="material-symbols-outlined">arrow_outward</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <span>Changelog</span>
+        <span class="material-symbols-outlined">arrow_outward</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main-content" class="main-content">
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="page-header-left">
+        <div class="eyebrow">Components</div>
+        <h1>Everything you need.</h1>
+        <p class="desc">A complete Figma component library across 8 categories and 47 components.</p>
+      </div>
+      <div class="page-header-right">
+        Showing <span id="componentCount">47</span> components
+      </div>
+    </header>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-bar-inner">
+        <div class="filter-pills" id="filterPills">
+          <button class="filter-pill active" data-category="all">All</button>
+          <button class="filter-pill" data-category="forms">Forms</button>
+          <button class="filter-pill" data-category="navigation">Navigation</button>
+          <button class="filter-pill" data-category="feedback">Feedback</button>
+          <button class="filter-pill" data-category="data display">Data Display</button>
+          <button class="filter-pill" data-category="layout">Layout</button>
+          <button class="filter-pill" data-category="overlays">Overlays</button>
+          <button class="filter-pill" data-category="typography">Typography</button>
+        </div>
+        <button class="mobile-filter-btn" id="mobileFilterBtn">
+          <span class="material-symbols-outlined">filter_list</span>
+          Filters
+        </button>
+        <div class="view-controls">
+          <button class="view-btn active" id="gridViewBtn" aria-label="Grid view">
+            <span class="material-symbols-outlined">grid_view</span>
+          </button>
+          <button class="view-btn" id="listViewBtn" aria-label="List view">
+            <span class="material-symbols-outlined">view_list</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Component Grid -->
+    <div class="comp-grid" id="compGrid">
+      <!-- Grid will be populated by JavaScript -->
+    </div>
+  </main>
+
+  <!-- Component Detail Modal -->
+  <div class="detail-modal-backdrop" id="detailModal">
+    <div class="detail-modal" role="dialog" aria-modal="true">
+      <div class="detail-modal-header">
+        <img id="detailCoverImage" src="" alt="">
+        <div class="detail-cover-overlay"></div>
+        <button class="detail-modal-close" onclick="closeDetailModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="detail-modal-badges">
+          <span class="badge badge-default" id="detailFigmaBadge">Figma</span>
+          <span class="badge badge-success" id="detailNewBadge" style="display:none;">NEW</span>
+          <span class="badge badge-gold" id="detailUpdatedBadge" style="display:none;">UPDATED</span>
+        </div>
+      </div>
+      <div class="detail-modal-content">
+        <div class="detail-modal-category" id="detailCategory"></div>
+        <div class="detail-modal-title-row">
+          <h2 class="detail-modal-title" id="detailTitle"></h2>
+          <a href="#" class="detail-figma-link" id="detailFigmaLinkTitle" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="20" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 28.5L19 0L0 19L19 28.5Z" fill="currentColor" />
+              <path d="M19 28.5L0 19L19 38L19 28.5Z" fill="currentColor" fill-opacity="0.6" />
+              <path d="M19 0L38 19L19 38L19 0Z" fill="currentColor" fill-opacity="0.4" />
+              <path d="M19 57L19 38L38 19L19 57Z" fill="currentColor" />
+              <path d="M0 19L19 38L19 57L0 19Z" fill="currentColor" fill-opacity="0.6" />
+            </svg>
+            Open in Figma
+          </a>
+        </div>
+        <div class="detail-modal-meta">
+          <div class="detail-meta-item">
+            <span class="detail-meta-label">Variants</span>
+            <span class="detail-meta-value" id="detailVariants"></span>
+          </div>
+          <div class="detail-meta-item">
+            <span class="detail-meta-label">States</span>
+            <span class="detail-meta-value" id="detailStates"></span>
+          </div>
+          <div class="detail-meta-item">
+            <span class="detail-meta-label">Category</span>
+            <span class="detail-meta-value" id="detailCategoryMeta"></span>
+          </div>
+        </div>
+        <div class="detail-modal-video">
+          <div class="detail-video-title">Component Showcase</div>
+          <div class="detail-video-wrapper" id="detailVideoWrapper">
+            <div class="detail-video-placeholder" id="detailVideoPlaceholder">
+              <span class="material-symbols-outlined">videocam_off</span>
+              <span>No video available</span>
+            </div>
+            <video id="detailVideoPlayer" autoplay loop muted playsinline style="display:none;width:100%;height:100%;object-fit:contain;"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Figma Pill CTA -->
+  <a href="#" class="figma-pill">
+    <span class="material-symbols-outlined">open_in_new</span>
+    Open in Figma
+  </a>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" aria-label="Mobile navigation" role="navigation">
+    <div class="mobile-nav-inner">
+      <a href="index.html" class="mobile-nav-btn" aria-label="Home">
+        <span class="material-symbols-outlined">home</span>
+        <span class="mobile-nav-label">Home</span>
+      </a>
+      <a href="components.html" class="mobile-nav-btn active" aria-label="Component library">
+        <span class="material-symbols-outlined">widgets</span>
+        <span class="mobile-nav-label">Library</span>
+      </a>
+      <a href="#" class="mobile-nav-btn" aria-label="Open in Figma">
+        <svg width="20" height="24" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg"
+          style="opacity:0.6">
+          <path d="M19 28.5L19 0L0 19L19 28.5Z" fill="currentColor" />
+          <path d="M19 28.5L0 19L19 38L19 28.5Z" fill="currentColor" fill-opacity="0.6" />
+          <path d="M19 0L38 19L19 38L19 0Z" fill="currentColor" fill-opacity="0.4" />
+          <path d="M19 57L19 38L38 19L19 57Z" fill="currentColor" />
+          <path d="M0 19L19 38L19 57L0 19Z" fill="currentColor" fill-opacity="0.6" />
+        </svg>
+        <span class="mobile-nav-label">Figma</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">CHISEL<span>.</span>UI</div>
+        <div class="footer-tagline">Precision-crafted for Figma.</div>
+      </div>
+      <div class="footer-links">
+        <div>
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-col-links">
+            <li><a href="components.html">Components</a></li>
+            <li><a href="#">Templates</a></li>
+            <li><a href="#">Figma Kit</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Figma Community</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Resources</div>
+          <ul class="footer-col-links">
+<li><a href="docs.html">Documentation</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="#">Roadmap</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Github</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-col-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Github</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Chisel UI. All rights reserved.</span>
+      <div style="display:flex;gap:12px">
+        <a href="#" class="btn btn-ghost btn-sm">Privacy</a>
+        <a href="#" class="btn btn-ghost btn-sm">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+    let components = [];
+    let categories = ['Forms', 'Navigation', 'Feedback', 'Data Display', 'Layout', 'Overlays', 'Typography'];
+
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let currentView = 'grid';
+
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearch');
+    const compGrid = document.getElementById('compGrid');
+    const componentCount = document.getElementById('componentCount');
+    const filterPills = document.getElementById('filterPills');
+    const gridViewBtn = document.getElementById('gridViewBtn');
+    const listViewBtn = document.getElementById('listViewBtn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    const cursorGlow = document.getElementById('cursorGlow');
+
+    async function fetchComponents() {
+      const { data, error } = await supabase
+        .from('components')
+        .select('*')
+        .order('category')
+        .order('name');
+
+      if (error) {
+        console.error('Error fetching components:', error);
+        return;
+      }
+
+      components = data;
+      categories = [...new Set(data.map(c => c.category))].sort();
+      renderGrid();
+      updateSidebarCounts();
+    }
+
+    function updateSidebarCounts() {
+      const countMap = {};
+      components.forEach(c => {
+        countMap[c.category] = (countMap[c.category] || 0) + 1;
+      });
+
+      document.querySelectorAll('.sidebar-item[data-category]').forEach(item => {
+        const cat = item.dataset.category;
+        const countEl = item.querySelector('.count');
+        if (countEl && countMap[cat] !== undefined) {
+          countEl.textContent = countMap[cat];
+        }
+      });
+
+      const totalEl = document.querySelector('.sidebar-item[data-category="all"] .count');
+      if (totalEl) totalEl.textContent = components.length;
+    }
+
+    function generatePreviewSVG(comp) {
+      const hue = Math.abs(comp.name.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 360);
+      const bgColor = `hsl(${hue}, 15%, 85%)`;
+      const accentColor = `hsl(${hue}, 40%, 50%)`;
+      
+      return `
+        <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="200" fill="${bgColor}"/>
+          <rect x="40" y="70" width="120" height="60" rx="8" fill="white" stroke="${accentColor}" stroke-width="1.5"/>
+          <rect x="50" y="85" width="60" height="8" rx="2" fill="${accentColor}" opacity="0.6"/>
+          <rect x="50" y="100" width="100" height="4" rx="1" fill="${accentColor}" opacity="0.3"/>
+          <rect x="50" y="110" width="80" height="4" rx="1" fill="${accentColor}" opacity="0.3"/>
+          <circle cx="140" cy="100" r="12" fill="${accentColor}" opacity="0.8"/>
+        </svg>
+      `;
+    }
+
+    function renderGrid() {
+      const filtered = components.filter(c => {
+        const matchesCategory = currentFilter === 'all' || 
+          (currentFilter === 'new' && c.is_new) ||
+          (currentFilter === 'updated' && c.is_updated) ||
+          c.category.toLowerCase() === currentFilter.toLowerCase();
+        const matchesSearch = c.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                              c.category.toLowerCase().includes(currentSearch.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      const grouped = {};
+      categories.forEach(cat => {
+        const items = filtered.filter(c => c.category === cat);
+        if (items.length) grouped[cat] = items;
+      });
+
+      let html = '';
+      let cardIndex = 0;
+
+      Object.entries(grouped).forEach(([category, items], sectionIdx) => {
+        html += `
+          <div class="category-section" data-category="${category.toLowerCase()}">
+            <div class="category-header">
+              <span class="category-name">${category}</span>
+              <span class="category-line"></span>
+              <span class="category-count">${items.length} components</span>
+            </div>
+          </div>
+        `;
+
+        items.forEach(comp => {
+          const delay = cardIndex * 40;
+          const preview = comp.cover_image 
+            ? `<img src="${comp.cover_image}" alt="${comp.name}" onerror="this.outerHTML='${generatePreviewSVG(comp).replace(/'/g, "\\'")}'">`
+            : generatePreviewSVG(comp);
+          
+          if (currentView === 'grid') {
+            html += `
+              <div class="comp-card" data-id="${comp.id}" style="animation-delay: ${delay}ms" onclick="openFigma('${comp.id}')">
+                <div class="comp-card-preview">
+                  ${preview}
+                  <div class="comp-card-badges">
+                    <span class="badge badge-default">Figma</span>
+                    ${comp.is_new ? '<span class="badge badge-success">NEW</span>' : ''}
+                    ${comp.is_updated ? '<span class="badge badge-gold">UPDATED</span>' : ''}
+                  </div>
+                </div>
+                <div class="comp-card-body">
+                  <span class="comp-card-category">${comp.category}</span>
+                  <span class="comp-card-name">${comp.name}</span>
+                  <span class="comp-card-meta">${comp.variants} variants · ${comp.states} states</span>
+                </div>
+              </div>
+            `;
+          } else {
+            const thumbPreview = comp.cover_image 
+              ? `<img src="${comp.cover_image}" alt="${comp.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`
+              : ``;
+            html += `
+              <div class="comp-card-list" data-id="${comp.id}" style="animation-delay: ${delay}ms" onclick="openFigma('${comp.id}')">
+                <div class="comp-card-list-thumb">
+                  ${thumbPreview}
+                </div>
+                <span class="comp-card-list-name">${comp.name}</span>
+                <span class="comp-card-list-category">${comp.category}</span>
+                <span class="comp-card-list-meta">${comp.variants} variants · ${comp.states} states</span>
+                <span class="comp-card-list-action material-symbols-outlined">arrow_outward</span>
+              </div>
+            `;
+          }
+          cardIndex++;
+        });
+      });
+
+      if (filtered.length === 0) {
+        html = `
+          <div class="empty-state">
+            <div class="empty-icon">◻</div>
+            <p class="empty-title">No components found</p>
+            <p class="empty-desc">Try a different search term or browse all categories</p>
+            <button class="btn btn-ghost btn-sm" onclick="clearSearch()">Clear search</button>
+          </div>
+        `;
+      }
+
+      compGrid.innerHTML = html;
+      compGrid.className = currentView === 'list' ? 'comp-grid list-view' : 'comp-grid';
+      componentCount.textContent = filtered.length;
+
+      if (currentSearch) {
+        compGrid.querySelectorAll('.comp-card, .comp-card-list').forEach(card => {
+          const id = card.dataset.id;
+          const match = components.find(c => c.id === id);
+          if (match) {
+            const matchesSearch = match.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                                  match.category.toLowerCase().includes(currentSearch.toLowerCase());
+            if (!matchesSearch) {
+              card.classList.add('hidden');
+            }
+          }
+        });
+      }
+
+      updateCategoryVisibility();
+    }
+
+    function updateCategoryVisibility() {
+      document.querySelectorAll('.category-section').forEach(section => {
+        const category = section.dataset.category;
+        const cards = compGrid.querySelectorAll(`.comp-card[data-id], .comp-card-list[data-id]`);
+        let hasVisibleCards = false;
+
+        cards.forEach(card => {
+          const comp = components.find(c => c.id === card.dataset.id);
+          if (comp && comp.category.toLowerCase() === category && !card.classList.contains('hidden')) {
+            hasVisibleCards = true;
+          }
+        });
+
+        section.style.display = hasVisibleCards ? 'block' : 'none';
+      });
+    }
+
+    function updateActiveState(category) {
+      sidebarItems.forEach(item => {
+        item.classList.toggle('active', item.dataset.category === category);
+      });
+      
+      filterPills.querySelectorAll('.filter-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.dataset.category === category);
+      });
+    }
+
+    function setFilter(category) {
+      currentFilter = category;
+      updateActiveState(category);
+      renderGrid();
+      
+      if (category !== 'all' && category !== 'new' && category !== 'updated') {
+        history.replaceState(null, '', `#${category}`);
+      } else {
+        history.replaceState(null, '', window.location.pathname);
+      }
+    }
+
+    function setSearch(term) {
+      currentSearch = term;
+      searchInput.value = term;
+      clearBtn.classList.toggle('visible', term.length > 0);
+      renderGrid();
+    }
+
+    function clearSearch() {
+      setSearch('');
+      searchInput.focus();
+    }
+
+    function setView(view) {
+      currentView = view;
+      gridViewBtn.classList.toggle('active', view === 'grid');
+      listViewBtn.classList.toggle('active', view === 'list');
+      renderGrid();
+    }
+
+    function openDetailModal(id) {
+      const comp = components.find(c => c.id === id);
+      if (!comp) return;
+
+      const modal = document.getElementById('detailModal');
+      const coverImg = document.getElementById('detailCoverImage');
+      const title = document.getElementById('detailTitle');
+      const category = document.getElementById('detailCategory');
+      const categoryMeta = document.getElementById('detailCategoryMeta');
+      const variants = document.getElementById('detailVariants');
+      const states = document.getElementById('detailStates');
+      const newBadge = document.getElementById('detailNewBadge');
+      const updatedBadge = document.getElementById('detailUpdatedBadge');
+      const figmaLinkTitle = document.getElementById('detailFigmaLinkTitle');
+      const videoPlaceholder = document.getElementById('detailVideoPlaceholder');
+      const videoIframe = document.getElementById('detailVideoIframe');
+
+      coverImg.src = comp.cover_image || '';
+      coverImg.style.display = comp.cover_image ? 'block' : 'none';
+      title.textContent = comp.name;
+      category.textContent = comp.category;
+      if (figmaLinkTitle) figmaLinkTitle.href = comp.figma_url || '#';
+      categoryMeta.textContent = comp.category;
+      variants.textContent = comp.variants;
+      states.textContent = comp.states;
+      newBadge.style.display = comp.is_new ? 'inline-flex' : 'none';
+      updatedBadge.style.display = comp.is_updated ? 'inline-flex' : 'none';
+
+      const videoPlayer = document.getElementById('detailVideoPlayer');
+      videoPlayer.oncanplay = function() {
+        videoPlayer.play();
+        videoPlayer.style.display = 'block';
+        videoPlaceholder.style.display = 'none';
+      };
+      if (comp.video_url) {
+        videoPlayer.src = comp.video_url;
+        videoPlaceholder.style.display = 'flex';
+      } else {
+        videoPlayer.style.display = 'none';
+        videoPlaceholder.style.display = 'flex';
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      const videoPlayer = document.getElementById('detailVideoPlayer');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      videoPlayer.src = '';
+      videoPlayer.pause();
+    }
+
+    function getYouTubeVideoId(url) {
+      if (!url) return null;
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    window.closeDetailModal = closeDetailModal;
+
+    function openFigma(id) {
+      openDetailModal(id);
+    }
+
+    window.openFigma = openFigma;
+
+    function toggleSidebar(open) {
+      sidebar.classList.toggle('open', open);
+      sidebarBackdrop.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      setSearch(e.target.value);
+    });
+
+    clearBtn.addEventListener('click', clearSearch);
+
+    filterPills.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-pill')) {
+        setFilter(e.target.dataset.category);
+      }
+    });
+
+    sidebarItems.forEach(item => {
+      item.addEventListener('click', () => {
+        setFilter(item.dataset.category);
+        if (window.innerWidth <= 768) {
+          toggleSidebar(false);
+        }
+      });
+    });
+
+    gridViewBtn.addEventListener('click', () => setView('grid'));
+    listViewBtn.addEventListener('click', () => setView('list'));
+
+    mobileFilterBtn.addEventListener('click', () => toggleSidebar(true));
+    sidebarBackdrop.addEventListener('click', () => toggleSidebar(false));
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.classList.add('kb-focus');
+      }
+    });
+
+    searchInput.addEventListener('blur', () => {
+      searchInput.classList.remove('kb-focus');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+      }
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const category = entry.target.dataset.category;
+          if (category && category !== 'all' && category !== 'new' && category !== 'updated') {
+            sidebarItems.forEach(item => {
+              item.classList.toggle('active', item.dataset.category === category);
+            });
+          }
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '-100px 0px -60% 0px' });
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'light';
+      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+    });
+
+    document.getElementById('detailModal').addEventListener('click', (e) => {
+      if (e.target.classList.contains('detail-modal-backdrop')) {
+        closeDetailModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDetailModal();
+      }
+    });
+
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const validCategory = categories.find(c => c.toLowerCase() === hash.toLowerCase());
+      if (validCategory) {
+        setFilter(hash.toLowerCase());
+      }
+    }
+
+    fetchComponents();
+  </script>
+</body>
+
+</html>

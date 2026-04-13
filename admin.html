@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Admin — CHISEL UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F7F7F7;
+      --bg2: #ECECEC;
+      --surface: #FFFFFF;
+      --surface2: #F2F2F2;
+      --text: #1a1a1a;
+      --text2: #2a2a2a;
+      --text3: #6B6762;
+      --border: rgba(26, 26, 26, 0.10);
+      --accent: #1a1a1a;
+      --accent2: #C8A96E;
+      --nav-bg: rgba(247, 247, 247, 0.85);
+      --card-bg: #FFFFFF;
+      --tag-bg: rgba(26, 26, 26, 0.06);
+      --glow: rgba(200, 169, 110, 0.15);
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+      --elevation-1: 0 1px 2px rgba(0,0,0,0.08);
+      --elevation-2: 0 2px 8px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+      --elevation-3: 0 4px 16px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
+      --shadow-xs: rgba(0, 0, 0, 0.08);
+      --shadow-sm: rgba(0, 0, 0, 0.12);
+      --shadow-md: rgba(0, 0, 0, 0.15);
+      --color-success: #34C759;
+      --color-success-bg: rgba(52, 199, 89, 0.10);
+      --color-success-border: rgba(52, 199, 89, 0.25);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0A0908;
+      --bg2: #111009;
+      --surface: #151412;
+      --surface2: #1C1A18;
+      --text: #F2EFE8;
+      --text2: #C8C4BB;
+      --text3: #8A8780;
+      --border: rgba(242, 239, 232, 0.10);
+      --accent: #F2EFE8;
+      --tag-bg: rgba(242, 239, 232, 0.07);
+      --glow: rgba(200, 169, 110, 0.12);
+      --color-success: #30D158;
+      --color-success-bg: rgba(48, 209, 88, 0.10);
+      --color-success-border: rgba(48, 209, 88, 0.25);
+      --elevation-1: 0 1px 2px rgba(0,0,0,0.4);
+      --elevation-2: 0 2px 8px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
+      --elevation-3: 0 4px 16px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: var(--space-4) var(--space-8);
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent2); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    .theme-toggle .material-symbols-outlined { font-size: 18px; }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-8);
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-8);
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .page-header h1 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--text);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+    }
+
+    .stat-card .value {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 32px;
+      color: var(--text);
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-card .label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      padding-left: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .search-box input::placeholder { color: var(--text3); }
+
+    .search-box .material-symbols-outlined {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3);
+      font-size: 18px;
+    }
+
+    .filter-select {
+      padding: var(--space-3) var(--space-4);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      cursor: pointer;
+      min-width: 150px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: var(--accent2);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--duration-base, 200ms) var(--ease-out, ease), box-shadow var(--duration-base, 200ms) var(--ease-out, ease);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--elevation-2);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: #DC3545;
+      color: white;
+    }
+
+    .btn .material-symbols-outlined { font-size: 16px; }
+
+    .table-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: var(--space-4);
+      background: var(--surface2);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text2);
+      vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: var(--surface2); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-new {
+      background: var(--color-success-bg);
+      color: var(--color-success);
+      border: 1px solid var(--color-success-border);
+    }
+
+    .badge-updated {
+      background: var(--glow);
+      color: var(--accent2);
+      border: 1px solid rgba(200, 169, 110, 0.3);
+    }
+
+    .actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      cursor: pointer;
+      color: var(--text3);
+      transition: all 200ms;
+    }
+
+    .action-btn:hover {
+      background: var(--surface2);
+      color: var(--text);
+    }
+
+    .action-btn.delete:hover {
+      background: rgba(220, 53, 69, 0.1);
+      border-color: #DC3545;
+      color: #DC3545;
+    }
+
+    .action-btn .material-symbols-outlined { font-size: 16px; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--elevation-4);
+      transform: translateY(20px);
+      transition: transform 200ms;
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-6);
+    }
+
+    .modal-header h2 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text3);
+      font-size: 20px;
+    }
+
+    .modal-close:hover { color: var(--text); }
+
+    .form-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: var(--space-2);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: var(--space-3);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .checkbox-group {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      text-transform: none;
+      letter-spacing: normal;
+      cursor: pointer;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent2);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: flex-end;
+      margin-top: var(--space-6);
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .toast {
+      padding: var(--space-4) var(--space-5);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--elevation-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      animation: slideIn 300ms ease;
+    }
+
+    .toast.success {
+      border-color: var(--color-success);
+    }
+
+    .toast.error {
+      border-color: #DC3545;
+    }
+
+    .toast .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    .toast.success .material-symbols-outlined { color: var(--color-success); }
+    .toast.error .material-symbols-outlined { color: #DC3545; }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-10);
+      color: var(--text3);
+    }
+
+    .loading .material-symbols-outlined {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-10);
+      color: var(--text3);
+    }
+
+    @media (max-width: 768px) {
+      .table-wrapper { overflow-x: auto; }
+      table { min-width: 600px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* Password Screen */
+    .password-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .password-overlay.hidden {
+      display: none;
+    }
+
+    .password-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .password-box .nav-logo {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 24px;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: var(--space-6);
+    }
+
+    .password-box .nav-logo span { color: var(--accent2); }
+
+    .password-box h2 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: var(--space-6);
+    }
+
+    .password-box input {
+      width: 100%;
+      padding: var(--space-4);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .password-box input:focus {
+      outline: none;
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .password-box .btn {
+      width: 100%;
+    }
+
+    .password-error {
+      color: #DC3545;
+      font-size: 12px;
+      margin-top: var(--space-3);
+      display: none;
+    }
+
+    .password-error.show {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Password Protection -->
+  <div class="password-overlay" id="passwordOverlay">
+    <div class="password-box">
+      <a href="index.html" class="nav-logo">CHISEL<span>.</span>UI</a>
+      <h2>Admin Access</h2>
+      <input type="password" id="passwordInput" placeholder="Enter password" onkeypress="if(event.key==='Enter')checkPassword()">
+      <button class="btn" onclick="checkPassword()">Unlock</button>
+      <p class="password-error" id="passwordError">Incorrect password</p>
+    </div>
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">CHISEL<span>.</span>UI</a>
+    <div class="nav-right">
+      <a href="components.html" class="btn btn-secondary">View Site</a>
+      <button class="theme-toggle" id="themeToggle">
+        <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Component Admin</h1>
+      <button class="btn" onclick="openModal()">
+        <span class="material-symbols-outlined">add</span>
+        Add Component
+      </button>
+    </div>
+
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card">
+        <div class="value" id="totalCount">—</div>
+        <div class="label">Total Components</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="categoryCount">—</div>
+        <div class="label">Categories</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="newCount">—</div>
+        <div class="label">New</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" id="searchInput" placeholder="Search components..." oninput="handleSearch()">
+      </div>
+      <select class="filter-select" id="categoryFilter" onchange="handleFilter()">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Variants</th>
+            <th>States</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="componentsTable">
+          <tr>
+            <td colspan="6" class="loading">
+              <span class="material-symbols-outlined">progress_activity</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Component</h2>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <form id="componentForm" onsubmit="handleSubmit(event)">
+        <input type="hidden" id="componentId">
+        <div class="form-group">
+          <label for="name">Component Name</label>
+          <input type="text" id="name" required placeholder="e.g., Button">
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" required>
+            <option value="">Select category</option>
+            <option value="Forms">Forms</option>
+            <option value="Navigation">Navigation</option>
+            <option value="Feedback">Feedback</option>
+            <option value="Data Display">Data Display</option>
+            <option value="Layout">Layout</option>
+            <option value="Overlays">Overlays</option>
+            <option value="Typography">Typography</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="variants">Variants</label>
+            <input type="number" id="variants" min="1" value="1">
+          </div>
+          <div class="form-group">
+            <label for="states">States</label>
+            <input type="number" id="states" min="1" value="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="figmaUrl">Figma URL</label>
+          <input type="text" id="figmaUrl" placeholder="https://figma.com...">
+        </div>
+        <div class="form-group">
+          <label for="coverImage">Cover Image URL</label>
+          <input type="text" id="coverImage" placeholder="https://example.com/image.png">
+        </div>
+        <div class="form-group">
+          <label for="videoUrl">Video URL (YouTube/Vimeo)</label>
+          <input type="text" id="videoUrl" placeholder="https://youtube.com/watch?v=...">
+        </div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="isNew">
+              <span>New</span>
+            </label>
+            <label>
+              <input type="checkbox" id="isUpdated">
+              <span>Recently Updated</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn" id="submitBtn">Save Component</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+    let components = [];
+    let categories = [];
+    let editingId = null;
+
+    // Password Protection
+    const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
+
+    function checkPassword() {
+      const input = document.getElementById('passwordInput');
+      const overlay = document.getElementById('passwordOverlay');
+      const error = document.getElementById('passwordError');
+
+      if (input.value === ADMIN_PASSWORD) {
+        overlay.classList.add('hidden');
+        fetchData();
+      } else {
+        error.classList.add('show');
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    window.checkPassword = checkPassword;
+
+    // Don't load data until password is correct - fetchData is called in checkPassword
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'light';
+      html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+    });
+
+    // Fetch data
+    async function fetchData() {
+      const [compResult, catResult] = await Promise.all([
+        supabase.from('components').select('*').order('category').order('name'),
+        supabase.from('categories').select('*').order('sort_order')
+      ]);
+
+      if (compResult.error) {
+        showToast('Error loading components', 'error');
+        return;
+      }
+
+      components = compResult.data;
+      categories = catResult.data || [];
+      
+      updateStats();
+      populateCategoryFilter();
+      renderTable();
+    }
+
+    function updateStats() {
+      document.getElementById('totalCount').textContent = components.length;
+      document.getElementById('categoryCount').textContent = new Set(components.map(c => c.category)).size;
+      document.getElementById('newCount').textContent = components.filter(c => c.is_new).length;
+    }
+
+    function populateCategoryFilter() {
+      const select = document.getElementById('categoryFilter');
+      const uniqueCategories = [...new Set(components.map(c => c.category))].sort();
+      
+      select.innerHTML = '<option value="">All Categories</option>';
+      uniqueCategories.forEach(cat => {
+        select.innerHTML += `<option value="${cat}">${cat}</option>`;
+      });
+    }
+
+    function renderTable(data = components) {
+      const tbody = document.getElementById('componentsTable');
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No components found</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map(c => `
+        <tr>
+          <td><strong>${escapeHtml(c.name)}</strong></td>
+          <td>${escapeHtml(c.category)}</td>
+          <td>${c.variants}</td>
+          <td>${c.states}</td>
+          <td>
+            ${c.is_new ? '<span class="badge badge-new">New</span>' : ''}
+            ${c.is_updated ? '<span class="badge badge-updated">Updated</span>' : ''}
+          </td>
+          <td>
+            <div class="actions">
+              <button class="action-btn" onclick="editComponent('${c.id}')" title="Edit">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+              <button class="action-btn delete" onclick="deleteComponent('${c.id}')" title="Delete">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Search and filter
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+      
+      const filtered = components.filter(c => {
+        const matchesSearch = c.name.toLowerCase().includes(query) || c.category.toLowerCase().includes(query);
+        const matchesCategory = !category || c.category === category;
+        return matchesSearch && matchesCategory;
+      });
+      
+      renderTable(filtered);
+    }
+
+    function handleFilter() {
+      handleSearch();
+    }
+
+    // Modal
+    window.openModal = function(id = null) {
+      editingId = id;
+      const modal = document.getElementById('modal');
+      const form = document.getElementById('componentForm');
+      const title = document.getElementById('modalTitle');
+      const submitBtn = document.getElementById('submitBtn');
+
+      form.reset();
+      document.getElementById('componentId').value = '';
+
+      if (id) {
+        const comp = components.find(c => c.id === id);
+        if (comp) {
+          title.textContent = 'Edit Component';
+          submitBtn.textContent = 'Update Component';
+          document.getElementById('componentId').value = comp.id;
+          document.getElementById('name').value = comp.name;
+          document.getElementById('category').value = comp.category;
+          document.getElementById('variants').value = comp.variants || 1;
+          document.getElementById('states').value = comp.states || 1;
+          document.getElementById('figmaUrl').value = comp.figma_url || '';
+          document.getElementById('coverImage').value = comp.cover_image || '';
+          document.getElementById('videoUrl').value = comp.video_url || '';
+          document.getElementById('isNew').checked = comp.is_new || false;
+          document.getElementById('isUpdated').checked = comp.is_updated || false;
+        }
+      } else {
+        title.textContent = 'Add Component';
+        submitBtn.textContent = 'Save Component';
+      }
+
+      modal.classList.add('open');
+    };
+
+    window.closeModal = function() {
+      document.getElementById('modal').classList.remove('open');
+      editingId = null;
+    };
+
+    window.editComponent = function(id) {
+      openModal(id);
+    };
+
+    // Form submit
+    window.handleSubmit = async function(e) {
+      e.preventDefault();
+      
+      const data = {
+        name: document.getElementById('name').value,
+        category: document.getElementById('category').value,
+        variants: parseInt(document.getElementById('variants').value) || 1,
+        states: parseInt(document.getElementById('states').value) || 1,
+        figma_url: document.getElementById('figmaUrl').value || null,
+        cover_image: document.getElementById('coverImage').value || null,
+        video_url: document.getElementById('videoUrl').value || null,
+        is_new: document.getElementById('isNew').checked,
+        is_updated: document.getElementById('isUpdated').checked
+      };
+
+      const id = document.getElementById('componentId').value;
+
+      let result;
+      if (id) {
+        result = await supabase.from('components').update(data).eq('id', id).select().single();
+      } else {
+        result = await supabase.from('components').insert([data]).select().single();
+      }
+
+      if (result.error) {
+        showToast('Error saving component', 'error');
+        return;
+      }
+
+      showToast(id ? 'Component updated' : 'Component created', 'success');
+      closeModal();
+      fetchData();
+    };
+
+    // Delete
+    window.deleteComponent = async function(id) {
+      if (!confirm('Delete this component?')) return;
+
+      const result = await supabase.from('components').delete().eq('id', id);
+      
+      if (result.error) {
+        showToast('Error deleting component', 'error');
+        return;
+      }
+
+      showToast('Component deleted', 'success');
+      fetchData();
+    };
+
+    // Toast
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `
+        <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' : 'error'}</span>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-backdrop')) closeModal();
+    });
+
+    // Close modal on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+
+</html>
