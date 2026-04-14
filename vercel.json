@@ -42,6 +42,18 @@
   ],
   "rewrites": [
     {
+      "source": "/components",
+      "destination": "/components.html"
+    },
+    {
+      "source": "/docs",
+      "destination": "/docs.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
