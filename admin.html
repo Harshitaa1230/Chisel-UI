@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="utf-8" />
@@ -649,7 +649,7 @@
     <div class="nav-right">
       <a href="/components" class="btn btn-secondary">View Site</a>
       <button class="theme-toggle" id="themeToggle">
-        <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+        <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
       </button>
     </div>
   </nav>
@@ -728,13 +728,6 @@
           <label for="category">Category</label>
           <select id="category" required>
             <option value="">Select category</option>
-            <option value="Forms">Forms</option>
-            <option value="Navigation">Navigation</option>
-            <option value="Feedback">Feedback</option>
-            <option value="Data Display">Data Display</option>
-            <option value="Layout">Layout</option>
-            <option value="Overlays">Overlays</option>
-            <option value="Typography">Typography</option>
           </select>
         </div>
         <div class="form-row">
@@ -840,6 +833,7 @@
       
       updateStats();
       populateCategoryFilter();
+      populateCategoryDropdown();
       renderTable();
     }
 
@@ -856,6 +850,14 @@
       select.innerHTML = '<option value="">All Categories</option>';
       uniqueCategories.forEach(cat => {
         select.innerHTML += `<option value="${cat}">${cat}</option>`;
+      });
+    }
+
+    function populateCategoryDropdown() {
+      const select = document.getElementById('category');
+      select.innerHTML = '<option value="">Select category</option>';
+      categories.forEach(cat => {
+        select.innerHTML += `<option value="${cat.name}">${cat.name}</option>`;
       });
     }
 

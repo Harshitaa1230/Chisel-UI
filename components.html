@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="utf-8" />
@@ -1025,7 +1025,7 @@
     </ul>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+        <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
       </button>
       <a href="#" class="btn btn-primary btn-sm">Open in Figma</a>
     </div>
@@ -1063,34 +1063,7 @@
 
     <div class="sidebar-section">
       <div class="sidebar-section-label">Categories</div>
-      <div class="sidebar-item" data-category="forms">
-        <span>Forms</span>
-        <span class="count">12</span>
-      </div>
-      <div class="sidebar-item" data-category="navigation">
-        <span>Navigation</span>
-        <span class="count">8</span>
-      </div>
-      <div class="sidebar-item" data-category="feedback">
-        <span>Feedback</span>
-        <span class="count">6</span>
-      </div>
-      <div class="sidebar-item" data-category="data display">
-        <span>Data Display</span>
-        <span class="count">9</span>
-      </div>
-      <div class="sidebar-item" data-category="layout">
-        <span>Layout</span>
-        <span class="count">5</span>
-      </div>
-      <div class="sidebar-item" data-category="overlays">
-        <span>Overlays</span>
-        <span class="count">4</span>
-      </div>
-      <div class="sidebar-item" data-category="typography">
-        <span>Typography</span>
-        <span class="count">3</span>
-      </div>
+      <div id="categoryList"></div>
     </div>
 
     <div class="sidebar-section">
@@ -1129,13 +1102,7 @@
       <div class="filter-bar-inner">
         <div class="filter-pills" id="filterPills">
           <button class="filter-pill active" data-category="all">All</button>
-          <button class="filter-pill" data-category="forms">Forms</button>
-          <button class="filter-pill" data-category="navigation">Navigation</button>
-          <button class="filter-pill" data-category="feedback">Feedback</button>
-          <button class="filter-pill" data-category="data display">Data Display</button>
-          <button class="filter-pill" data-category="layout">Layout</button>
-          <button class="filter-pill" data-category="overlays">Overlays</button>
-          <button class="filter-pill" data-category="typography">Typography</button>
+          <div id="filterPillList"></div>
         </div>
         <button class="mobile-filter-btn" id="mobileFilterBtn">
           <span class="material-symbols-outlined">filter_list</span>
@@ -1301,7 +1268,7 @@
     const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
 
     let components = [];
-    let categories = ['Forms', 'Navigation', 'Feedback', 'Data Display', 'Layout', 'Overlays', 'Typography'];
+    let categories = [];
 
     let currentFilter = 'all';
     let currentSearch = '';
@@ -1323,22 +1290,58 @@
     const html = document.documentElement;
     const cursorGlow = document.getElementById('cursorGlow');
 
-    async function fetchComponents() {
-      const { data, error } = await supabase
-        .from('components')
-        .select('*')
-        .order('category')
-        .order('name');
+    async function fetchData() {
+      const [compResult, catResult] = await Promise.all([
+        supabase.from('components').select('*').order('category').order('name'),
+        supabase.from('categories').select('*').order('sort_order')
+      ]);
 
-      if (error) {
-        console.error('Error fetching components:', error);
+      if (compResult.error) {
+        console.error('Error fetching components:', compResult.error);
         return;
       }
 
-      components = data;
-      categories = [...new Set(data.map(c => c.category))].sort();
+      components = compResult.data;
+      categories = catResult.data || [];
+      
+      renderSidebar();
       renderGrid();
       updateSidebarCounts();
+    }
+
+    function renderSidebar() {
+      const categoryList = document.getElementById('categoryList');
+      const filterPillList = document.getElementById('filterPillList');
+      const countMap = {};
+      components.forEach(c => {
+        countMap[c.category] = (countMap[c.category] || 0) + 1;
+      });
+
+      const categoryHtml = categories.map(cat => `
+        <div class="sidebar-item" data-category="${cat.slug}">
+          <span>${cat.name}</span>
+          <span class="count">${countMap[cat.name] || 0}</span>
+        </div>
+      `).join('');
+
+      const filterPillHtml = categories.map(cat => `
+        <button class="filter-pill" data-category="${cat.slug}">${cat.name}</button>
+      `).join('');
+
+      categoryList.innerHTML = categoryHtml;
+      filterPillList.innerHTML = filterPillHtml;
+
+      document.querySelectorAll('.sidebar-item[data-category]').forEach(item => {
+        item.addEventListener('click', () => setFilter(item.dataset.category));
+      });
+
+      document.querySelectorAll('.filter-pill[data-category]').forEach(pill => {
+        pill.addEventListener('click', () => setFilter(pill.dataset.category));
+      });
+    }
+
+    function getCategoryBySlug(slug) {
+      return categories.find(c => c.slug === slug);
     }
 
     function updateSidebarCounts() {
@@ -1378,10 +1381,12 @@
 
     function renderGrid() {
       const filtered = components.filter(c => {
+        const selectedCategory = getCategoryBySlug(currentFilter);
+        const categoryName = selectedCategory ? selectedCategory.name : currentFilter;
         const matchesCategory = currentFilter === 'all' || 
           (currentFilter === 'new' && c.is_new) ||
           (currentFilter === 'updated' && c.is_updated) ||
-          c.category.toLowerCase() === currentFilter.toLowerCase();
+          c.category.toLowerCase() === categoryName.toLowerCase();
         const matchesSearch = c.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
                               c.category.toLowerCase().includes(currentSearch.toLowerCase());
         return matchesCategory && matchesSearch;
@@ -1389,18 +1394,21 @@
 
       const grouped = {};
       categories.forEach(cat => {
-        const items = filtered.filter(c => c.category === cat);
-        if (items.length) grouped[cat] = items;
+        const items = filtered.filter(c => c.category === cat.name);
+        if (items.length) grouped[cat.name] = items;
       });
 
       let html = '';
       let cardIndex = 0;
 
-      Object.entries(grouped).forEach(([category, items], sectionIdx) => {
+      categories.forEach(cat => {
+        const items = grouped[cat.name];
+        if (!items) return;
+        
         html += `
-          <div class="category-section" data-category="${category.toLowerCase()}">
+          <div class="category-section" data-category="${cat.slug}">
             <div class="category-header">
-              <span class="category-name">${category}</span>
+              <span class="category-name">${cat.name}</span>
               <span class="category-line"></span>
               <span class="category-count">${items.length} components</span>
             </div>
@@ -1702,7 +1710,7 @@
       }
     }
 
-    fetchComponents();
+    fetchData();
   </script>
 </body>
 
