@@ -11,20 +11,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #F7F7F7;
-      --bg2: #ECECEC;
-      --surface: #FFFFFF;
-      --surface2: #F2F2F2;
-      --text: #1a1a1a;
-      --text2: #2a2a2a;
-      --text3: #6B6762;
-      --border: rgba(26, 26, 26, 0.10);
-      --accent: #1a1a1a;
-      --accent2: #C8A96E;
-      --nav-bg: rgba(247, 247, 247, 0.85);
-      --card-bg: #FFFFFF;
-      --tag-bg: rgba(26, 26, 26, 0.06);
-      --glow: rgba(200, 169, 110, 0.15);
+      --bg: #FBF3E3;
+      --bg-gradient: linear-gradient(180deg, #FBF3E3 0%, #F0E6D0 100%);
+      --bg2: #F6E9D4;
+      --surface: #FFFDF7;
+      --surface2: #F2DCE1;
+      --text: #4A3B32;
+      --text2: #6B5A4E;
+      --text3: #A08D7D;
+      --border: rgba(74, 59, 50, 0.12);
+      --accent: #4A3B32;
+      --accent2: #E29AB0;
+      --nav-bg: rgba(251, 243, 227, 0.85);
+      --nav-hover-bg: rgba(226, 154, 176, 0.15);
+      --card-bg: #FFFDF7;
+      --tag-bg: rgba(74, 59, 50, 0.06);
+      --glow: rgba(226, 154, 176, 0.18);
       --space-1: 4px;
       --space-2: 8px;
       --space-3: 12px;
@@ -37,57 +39,80 @@
       --radius-md: 8px;
       --radius-lg: 12px;
       --radius-full: 9999px;
-      --elevation-1: 0 1px 2px rgba(0,0,0,0.08);
-      --elevation-2: 0 2px 8px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
-      --elevation-3: 0 4px 16px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.08);
-      --shadow-xs: rgba(0, 0, 0, 0.08);
-      --shadow-sm: rgba(0, 0, 0, 0.12);
-      --shadow-md: rgba(0, 0, 0, 0.15);
-      --color-success: #34C759;
-      --color-success-bg: rgba(52, 199, 89, 0.10);
-      --color-success-border: rgba(52, 199, 89, 0.25);
+      --shadow-xs: rgba(74, 59, 50, 0.08);
+      --shadow-sm: rgba(74, 59, 50, 0.12);
+      --shadow-md: rgba(74, 59, 50, 0.15);
+      --elevation-1: 0 1px 2px var(--shadow-xs);
+      --elevation-2: 0 2px 8px var(--shadow-sm), 0 1px 2px var(--shadow-xs);
+      --elevation-3: 0 4px 16px var(--shadow-md), 0 2px 4px var(--shadow-xs);
+      --color-success: #5FAE72;
+      --color-success-bg: rgba(95, 174, 114, 0.10);
+      --color-success-border: rgba(95, 174, 114, 0.25);
     }
 
     [data-theme="dark"] {
-      --bg: #0A0908;
-      --bg2: #111009;
-      --surface: #151412;
-      --surface2: #1C1A18;
-      --text: #F2EFE8;
-      --text2: #C8C4BB;
-      --text3: #8A8780;
-      --border: rgba(242, 239, 232, 0.10);
-      --accent: #F2EFE8;
-      --tag-bg: rgba(242, 239, 232, 0.07);
-      --glow: rgba(200, 169, 110, 0.12);
-      --color-success: #30D158;
-      --color-success-bg: rgba(48, 209, 88, 0.10);
-      --color-success-border: rgba(48, 209, 88, 0.25);
+      --bg: #241A16;
+      --bg-gradient: linear-gradient(180deg, #241A16 0%, #1A110E 100%);
+      --bg2: #2E211B;
+      --surface: #3A2A22;
+      --surface2: #42302A;
+      --text: #F5E9DA;
+      --text2: #D9C6B5;
+      --text3: #9C8778;
+      --border: rgba(245, 233, 218, 0.10);
+      --accent: #F5E9DA;
+      --accent2: #E29AB0;
+      --nav-bg: rgba(36, 26, 22, 0.88);
+      --nav-hover-bg: rgba(245, 233, 218, 0.12);
+      --card-bg: #3A2A22;
+      --tag-bg: rgba(245, 233, 218, 0.07);
+      --glow: rgba(226, 154, 176, 0.12);
+      --shadow-xs: rgba(0, 0, 0, 0.20);
+      --shadow-sm: rgba(0, 0, 0, 0.30);
+      --shadow-md: rgba(0, 0, 0, 0.40);
+      --color-success: #7BC98E;
+      --color-success-bg: rgba(123, 201, 142, 0.10);
+      --color-success-border: rgba(123, 201, 142, 0.25);
       --elevation-1: 0 1px 2px rgba(0,0,0,0.4);
       --elevation-2: 0 2px 8px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
       --elevation-3: 0 4px 16px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4);
     }
 
+    /* ── LOGO SWAP ── */
+    .logo-light { display: block; }
+    .logo-dark  { display: none;  }
+    [data-theme="dark"] .logo-light { display: none;  }
+    [data-theme="dark"] .logo-dark  { display: block; }
+    .nav-logo img { height: 28px; width: auto; display: block; }
+    .password-box .nav-logo img { height: 32px; margin: 0 auto var(--space-6); }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--bg);
+      background: var(--bg-gradient);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
     }
 
     nav {
-      position: sticky;
-      top: 0;
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      right: 20px;
       z-index: 100;
-      padding: var(--space-4) var(--space-8);
-      background: var(--nav-bg);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      padding: 0 var(--space-6);
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+      box-shadow: 0 2px 16px var(--shadow-sm), 0 1px 4px var(--shadow-xs);
     }
 
     .nav-logo {
@@ -556,7 +581,7 @@
     .password-overlay {
       position: fixed;
       inset: 0;
-      background: var(--bg);
+      background: var(--bg-gradient);
       z-index: 999;
       display: flex;
       align-items: center;
@@ -636,8 +661,10 @@
   <!-- Password Protection -->
   <div class="password-overlay" id="passwordOverlay">
     <div class="password-box">
-      <a href="index.html" class="nav-logo">CHISEL<span>.</span>UI</a>
-      <h2>Admin Access</h2>
+      <a href="index.html" class="nav-logo">
+        <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+        <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+      </a>
       <input type="password" id="passwordInput" placeholder="Enter password" onkeypress="if(event.key==='Enter')checkPassword()">
       <button class="btn" onclick="checkPassword()">Unlock</button>
       <p class="password-error" id="passwordError">Incorrect password</p>
@@ -645,7 +672,10 @@
   </div>
 
   <nav>
-    <a href="index.html" class="nav-logo">CHISEL<span>.</span>UI</a>
+    <a href="index.html" class="nav-logo">
+      <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+      <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+    </a>
     <div class="nav-right">
       <a href="/components" class="btn btn-secondary">View Site</a>
       <button class="theme-toggle" id="themeToggle">

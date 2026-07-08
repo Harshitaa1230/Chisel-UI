@@ -14,28 +14,39 @@
     rel="stylesheet" />
   <style>
     :root {
-      --bg: #F7F7F7;
-      --bg2: #ECECEC;
-      --surface: #FFFFFF;
-      --surface2: #F2F2F2;
-      --text: #1a1a1a;
-      --text2: #2a2a2a;
-      --text3: #6B6762;
-      --border: rgba(26, 26, 26, 0.10);
-      --accent: #1a1a1a;
-      --accent2: #C8A96E;
-      --btn-face: #0F0E0C;
-      --btn-top: #2A2825;
-      --btn-shadow: #000000;
-      --btn-text: #F7F7F7;
-      --btn-ghost-face: #F0EDE8;
-      --btn-ghost-top: #FFFFFF;
-      --btn-ghost-shadow: rgba(26, 26, 26, 0.25);
-      --btn-ghost-text: #1a1a1a;
-      --nav-bg: rgba(247, 247, 247, 0.85);
-      --card-bg: #FFFFFF;
-      --tag-bg: rgba(26, 26, 26, 0.06);
-      --glow: rgba(200, 169, 110, 0.15);
+      --bg: #FBF3E3;
+      --bg-gradient: linear-gradient(180deg, #FBF3E3 0%, #F0E6D0 100%);
+      --bg2: #F6E9D4;
+      --surface: #FFFDF7;
+      --surface2: #F2DCE1;
+      --text: #4A3B32;
+      --text2: #6B5A4E;
+      --text3: #A08D7D;
+      --border: rgba(74, 59, 50, 0.12);
+      --accent: #4A3B32;
+      --accent2: #E29AB0;
+      --accent-brown: #8C6A4F;
+      --btn-face: #4A3B32;
+      --btn-top: #6B5648;
+      --btn-shadow: rgba(74, 59, 50, 0.25);
+      --btn-text: #FBF3E3;
+      --btn-ghost-face: #F6E9D4;
+      --btn-ghost-top: #FFFDF7;
+      --btn-ghost-shadow: rgba(74, 59, 50, 0.15);
+      --btn-ghost-text: #4A3B32;
+      --btn-gold-top: #F0BFCC;
+      --btn-gold-face: #E29AB0;
+      --btn-gold-deep: #C77890;
+      --btn-gold-shadow: rgba(199, 120, 144, 0.35);
+      --btn-gold-shadow-hover: rgba(199, 120, 144, 0.55);
+      --btn-gold-text: #4A1F2A;
+      --btn-gold-highlight: rgba(255, 255, 255, 0.35);
+      --btn-gold-inset: rgba(199, 120, 144, 0.4);
+      --nav-bg: rgba(251, 243, 227, 0.85);
+      --nav-hover-bg: rgba(226, 154, 176, 0.15);
+      --card-bg: #FFFDF7;
+      --tag-bg: rgba(74, 59, 50, 0.06);
+      --glow: rgba(226, 154, 176, 0.18);
 
       --space-1: 4px;
       --space-2: 8px;
@@ -69,27 +80,18 @@
       --z-nav: 100;
       --z-overlay: 200;
 
-      --btn-gold-top: #E8D4A0;
-      --btn-gold-face: #C8A96E;
-      --btn-gold-deep: #9A7D42;
-      --btn-gold-shadow: rgba(154, 125, 66, 0.35);
-      --btn-gold-shadow-hover: rgba(154, 125, 66, 0.55);
-      --btn-gold-text: #2A1F0A;
-      --btn-gold-highlight: rgba(255, 255, 255, 0.25);
-      --btn-gold-inset: rgba(154, 125, 66, 0.4);
+      --color-success: #5FAE72;
+      --color-success-bg: rgba(95, 174, 114, 0.10);
+      --color-success-border: rgba(95, 174, 114, 0.25);
 
-      --color-success: #34C759;
-      --color-success-bg: rgba(52, 199, 89, 0.10);
-      --color-success-border: rgba(52, 199, 89, 0.25);
+      --shadow-xs: rgba(74, 59, 50, 0.08);
+      --shadow-sm: rgba(74, 59, 50, 0.12);
+      --shadow-md: rgba(74, 59, 50, 0.15);
+      --shadow-lg: rgba(74, 59, 50, 0.22);
+      --shadow-xl: rgba(74, 59, 50, 0.35);
 
-      --shadow-xs: rgba(0, 0, 0, 0.08);
-      --shadow-sm: rgba(0, 0, 0, 0.12);
-      --shadow-md: rgba(0, 0, 0, 0.15);
-      --shadow-lg: rgba(0, 0, 0, 0.25);
-      --shadow-xl: rgba(0, 0, 0, 0.40);
-
-      --accent-gold: #C8A96E;
-      --accent-label: #C8A96E;
+      --accent-gold: #E29AB0;
+      --accent-label: #E29AB0;
 
       --duration-fast: 150ms;
       --duration-base: 200ms;
@@ -126,47 +128,52 @@
     }
 
     [data-theme="dark"] {
-      --bg: #0A0908;
-      --bg2: #111009;
-      --surface: #151412;
-      --surface2: #1C1A18;
-      --text: #F2EFE8;
-      --text2: #C8C4BB;
-      --text3: #8A8780;
-      --border: rgba(242, 239, 232, 0.10);
-      --accent: #F2EFE8;
-      --accent2: #C8A96E;
-      --btn-face: #E8E4DC;
+      --bg: #241A16;
+      --bg-gradient: linear-gradient(180deg, #241A16 0%, #1A110E 100%);
+      --bg2: #2E211B;
+      --surface: #3A2A22;
+      --surface2: #42302A;
+      --text: #F5E9DA;
+      --text2: #D9C6B5;
+      --text3: #9C8778;
+      --border: rgba(245, 233, 218, 0.10);
+      --accent: #F5E9DA;
+      --accent2: #E29AB0;
+      --accent-brown: #B08561;
+      --btn-face: #F5E9DA;
       --btn-top: #FFFFFF;
-      --btn-shadow: rgba(0, 0, 0, 0.8);
-      --btn-text: #0A0908;
-      --btn-ghost-face: #1C1A18;
-      --btn-ghost-top: #2A2825;
-      --btn-ghost-shadow: rgba(0, 0, 0, 0.6);
-      --btn-ghost-text: #F2EFE8;
-      --nav-bg: rgba(10, 9, 8, 0.88);
-      --card-bg: #151412;
-      --tag-bg: rgba(242, 239, 232, 0.07);
-      --glow: rgba(200, 169, 110, 0.12);
-
-      --btn-gold-top: #D4B87A;
-      --btn-gold-face: #C8A96E;
-      --btn-gold-deep: #8A6D32;
-      --btn-gold-shadow: rgba(200, 169, 110, 0.25);
-      --btn-gold-shadow-hover: rgba(200, 169, 110, 0.45);
-      --btn-gold-text: #0A0908;
+      --btn-shadow: rgba(0, 0, 0, 0.60);
+      --btn-text: #241A16;
+      --btn-ghost-face: #3A2A22;
+      --btn-ghost-top: #42302A;
+      --btn-ghost-shadow: rgba(0, 0, 0, 0.50);
+      --btn-ghost-text: #F5E9DA;
+      --btn-gold-top: #E6A8BA;
+      --btn-gold-face: #E29AB0;
+      --btn-gold-deep: #B8637E;
+      --btn-gold-shadow: rgba(230, 168, 186, 0.25);
+      --btn-gold-shadow-hover: rgba(230, 168, 186, 0.45);
+      --btn-gold-text: #241A16;
       --btn-gold-highlight: rgba(255, 255, 255, 0.15);
-      --btn-gold-inset: rgba(200, 169, 110, 0.3);
+      --btn-gold-inset: rgba(230, 168, 186, 0.3);
+      --nav-bg: rgba(36, 26, 22, 0.88);
+      --nav-hover-bg: rgba(245, 233, 218, 0.12);
+      --card-bg: #3A2A22;
+      --tag-bg: rgba(245, 233, 218, 0.07);
+      --glow: rgba(226, 154, 176, 0.12);
 
-      --color-success: #30D158;
-      --color-success-bg: rgba(48, 209, 88, 0.10);
-      --color-success-border: rgba(48, 209, 88, 0.25);
+      --color-success: #7BC98E;
+      --color-success-bg: rgba(123, 201, 142, 0.10);
+      --color-success-border: rgba(123, 201, 142, 0.25);
 
       --shadow-xs: rgba(0, 0, 0, 0.20);
       --shadow-sm: rgba(0, 0, 0, 0.30);
       --shadow-md: rgba(0, 0, 0, 0.40);
       --shadow-lg: rgba(0, 0, 0, 0.55);
       --shadow-xl: rgba(0, 0, 0, 0.70);
+
+      --accent-gold: #E29AB0;
+      --accent-label: #E29AB0;
 
       --elevation-1: 0 1px 2px rgba(0,0,0,0.4);
       --elevation-2: 0 2px 8px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
@@ -314,13 +321,21 @@
     }
 
     body {
-      background: var(--bg);
+      background: var(--bg-gradient);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
       transition: background 0.4s ease, color 0.4s ease;
     }
+
+    /* ── LOGO SWAP ── */
+    .logo-light { display: block; }
+    .logo-dark  { display: none;  }
+    [data-theme="dark"] .logo-light { display: none;  }
+    [data-theme="dark"] .logo-dark  { display: block; }
+    .nav-logo img  { height: 32px; width: auto; display: block; }
+    .footer-logo img { height: 36px; width: auto; display: block; }
 
     /* ── 3D CURVED BUTTONS ── */
     .btn {
@@ -452,21 +467,22 @@
     /* ── NAVIGATION ── */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 18px;
+      left: 20px;
+      right: 20px;
       z-index: var(--z-nav);
-      padding: 0 var(--section-gutter);
-      height: 68px;
+      padding: 0 var(--space-6);
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: var(--nav-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-radius: 999px;
+      border: 1px solid var(--border);
       transition: background 0.4s ease, border-color 0.4s ease;
-      box-shadow: var(--elevation-3);
+      box-shadow: 0 2px 16px var(--shadow-sm), 0 1px 4px var(--shadow-xs);
     }
 
     .nav-logo {
@@ -496,12 +512,16 @@
       text-transform: uppercase;
       color: var(--text3);
       text-decoration: none;
-      transition: color var(--duration-fast) var(--ease-out);
+      padding: 6px 14px;
+      border-radius: 999px;
+      transition: color var(--duration-fast) var(--ease-out),
+                  background-color var(--duration-fast) var(--ease-out);
       cursor: pointer;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: var(--accent2);
+      background-color: var(--nav-hover-bg);
     }
 
     .nav-links a.active {
@@ -551,7 +571,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 68px var(--section-gutter) var(--space-10);
+      padding: 96px var(--section-gutter) var(--space-10);
       position: relative;
       overflow: hidden;
     }
@@ -678,7 +698,7 @@
     /* ── STATS BAR ── */
     .stats-bar {
       padding: var(--section-padding-sm) var(--section-gutter);
-      background: var(--bg);
+      background: var(--bg-gradient);
       border-bottom: 1px solid var(--border);
     }
 
@@ -788,7 +808,7 @@
     /* ── COMPONENT PREVIEW ── */
     .component-preview {
       padding: var(--section-padding-md) var(--section-gutter);
-      background: var(--bg);
+      background: var(--bg-gradient);
       border-bottom: 1px solid var(--border);
     }
 
@@ -962,7 +982,7 @@
     /* ── WHAT'S INSIDE ── */
     .whats-inside {
       padding: var(--section-padding-lg) var(--section-gutter);
-      background: var(--bg);
+      background: var(--bg-gradient);
     }
 
     .inside-grid {
@@ -1533,7 +1553,10 @@
 
   <!-- Navigation -->
   <nav aria-label="Main navigation">
-    <a class="nav-logo" href="#">CHISEL<span>.</span>UI</a>
+    <a class="nav-logo" href="#">
+      <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+      <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+    </a>
     <ul class="nav-links">
       <li><a href="/components">Components</a></li>
       <li><a href="/docs">Documentation</a></li>
@@ -1892,7 +1915,10 @@
   <footer>
     <div class="footer-top">
       <div>
-        <div class="footer-logo">CHISEL<span>.</span>UI</div>
+        <div class="footer-logo">
+          <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+          <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+        </div>
         <div class="footer-tagline">Built for precision.</div>
       </div>
       <div class="footer-links">

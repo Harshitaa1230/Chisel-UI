@@ -60,7 +60,7 @@
     /* ── SIDEBAR ── */
     .sidebar {
       position: fixed;
-      top: 68px;
+      top: 96px;
       left: 0;
       width: 240px;
       height: calc(100vh - 68px);
@@ -293,7 +293,7 @@
     /* ── FILTER BAR ── */
     .filter-bar {
       position: sticky;
-      top: 68px;
+      top: 96px;
       z-index: 50;
       background: var(--nav-bg);
       backdrop-filter: blur(12px);
@@ -418,11 +418,15 @@
     .category-section {
       grid-column: 1 / -1;
       position: sticky;
-      top: 108px;
+      top: 136px;
       z-index: 40;
-      background: var(--bg);
+      background: linear-gradient(180deg, #FBF3E3 0%, #F0E6D0 100%);
       padding: var(--space-2) 0;
       margin-top: var(--space-12);
+    }
+
+    [data-theme="dark"] .category-section {
+      background: linear-gradient(180deg, #241a2e 0%, #151a33 100%);
     }
 
     .category-section:first-child {
@@ -1016,9 +1020,10 @@
 
   <!-- Navigation -->
   <nav aria-label="Main navigation">
-    <a class="nav-logo" href="index.html">CHISEL<span>.</span>UI</a>
-    <ul class="nav-links">
-      <li><a href="/components" class="active">Components</a></li>
+    <a class="nav-logo" href="index.html">
+      <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+      <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+    </a>
       <li><a href="/docs">Documentation</a></li>
       <li><a href="#">Figma Kit</a></li>
       <li><a href="#">Changelog</a></li>
@@ -1034,7 +1039,10 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <a href="index.html">CHISEL<span>.</span>UI</a>
+      <a href="index.html">
+        <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+        <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+      </a>
     </div>
 
     <div class="sidebar-search">
@@ -1218,7 +1226,10 @@
   <footer>
     <div class="footer-top">
       <div>
-        <div class="footer-logo">CHISEL<span>.</span>UI</div>
+        <div class="footer-logo">
+          <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+          <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+        </div>
         <div class="footer-tagline">Precision-crafted for Figma.</div>
       </div>
       <div class="footer-links">

@@ -17,15 +17,15 @@
     .doc-layout {
       display: flex;
       min-height: 100vh;
-      padding-top: 60px;
+      padding-top: 96px;
     }
 
     .doc-left-sidebar {
       position: fixed;
-      top: 60px;
+      top: 96px;
       left: 0;
       width: 260px;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 96px);
       background: var(--bg2);
       border-right: 1px solid var(--border);
       overflow-y: auto;
@@ -151,7 +151,7 @@
       margin-left: 260px;
       margin-right: 240px;
       padding: var(--space-16) var(--space-16) var(--space-20) var(--space-16);
-      min-height: calc(100vh - 60px);
+      min-height: calc(100vh - 96px);
     }
 
     .doc-content {
@@ -380,23 +380,23 @@
     }
 
     .doc-callout-tip {
-      background: rgba(200, 169, 110, 0.06);
+      background: rgba(226, 154, 176, 0.06);
       border-color: var(--accent2);
     }
 
     .doc-callout-warning {
-      background: rgba(255, 159, 10, 0.08);
-      border-color: #FF9F0A;
+      background: rgba(224, 149, 74, 0.08);
+      border-color: #E0954A;
     }
 
-    .doc-callout-warning .doc-callout-icon { color: #FF9F0A; }
+    .doc-callout-warning .doc-callout-icon { color: #E0954A; }
 
     .doc-callout-info {
-      background: rgba(0, 122, 255, 0.06);
-      border-color: #007AFF;
+      background: rgba(107, 147, 199, 0.06);
+      border-color: #6B93C7;
     }
 
-    .doc-callout-info .doc-callout-icon { color: #007AFF; }
+    .doc-callout-info .doc-callout-icon { color: #6B93C7; }
 
     .doc-callout-icon {
       font-size: 16px;
@@ -424,8 +424,8 @@
     }
 
     .doc-dont {
-      border: 1px solid rgba(255, 59, 48, 0.25);
-      border-top: 3px solid #FF3B30;
+      border: 1px solid rgba(217, 97, 79, 0.25);
+      border-top: 3px solid #D9614F;
       border-radius: var(--radius-lg);
       padding: var(--space-5);
     }
@@ -444,7 +444,7 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #FF3B30;
+      color: #D9614F;
       margin-bottom: var(--space-3);
     }
 
@@ -458,14 +458,14 @@
 
     .doc-toc {
       position: fixed;
-      top: 60px;
+      top: 96px;
       right: 0;
       width: 240px;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 96px);
       overflow-y: auto;
       padding: var(--space-8) var(--space-6) var(--space-8) var(--space-6);
       border-left: 1px solid var(--border);
-      background: var(--bg);
+      background: var(--bg-gradient);
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -607,8 +607,8 @@
     }
 
     .badge-info {
-      background: rgba(0, 122, 255, 0.1);
-      color: #007AFF;
+      background: rgba(107, 147, 199, 0.1);
+      color: #6B93C7;
     }
 
     .doc-page-header {
@@ -658,9 +658,9 @@
     .doc-toc-wrapper {
       position: fixed;
       right: 0;
-      top: 60px;
+      top: 96px;
       width: 240px;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 96px);
       overflow-y: auto;
       padding: var(--space-6) 0;
     }
@@ -764,7 +764,10 @@
 
 <body>
   <nav aria-label="Main navigation" class="doc-nav">
-    <a class="nav-logo" href="index.html">CHISEL<span>.</span>UI</a>
+    <a class="nav-logo" href="index.html">
+      <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+      <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+    </a>
     <button class="doc-menu-toggle" id="docMenuToggle" aria-label="Toggle documentation menu">
       <span class="material-symbols-outlined">menu</span>
     </button>
@@ -788,7 +791,10 @@
     <aside class="doc-left-sidebar" id="docSidebar">
       <div class="doc-sidebar-header">
         <div class="doc-sidebar-logo">
-          <a href="index.html">CHISEL<span>.</span>UI</a>
+          <a href="index.html">
+            <img src="/assets/dark logo.png" alt="Chisel UI" class="logo-light">
+            <img src="/assets/light logo.png" alt="Chisel UI" class="logo-dark">
+          </a>
         </div>
         <span class="doc-version">v1.0.0</span>
       </div>
