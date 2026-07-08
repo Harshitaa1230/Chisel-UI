@@ -3,7 +3,34 @@
    Import this in pages that use the design system
    ============================================= */
 
+/* ── CUSTOM FONTS ──
+   NCL Gasdrifo (Enxyclo Studio) for H1, TT Fors for everything else.
+   Drop the licensed font files into public/assets/fonts/. Until then the
+   fallbacks below keep the UI rendering. */
+@font-face {
+  font-family: 'NCL Gasdrifo';
+  src: url('/assets/fonts/NCLGasdrifo.woff2') format('woff2'),
+       url('/assets/fonts/NCLGasdrifo.woff') format('woff'),
+       url('/assets/fonts/NCLGasdrifo.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TTfors';
+  src: url('/assets/fonts/TTfors.woff2') format('woff2'),
+       url('/assets/fonts/TTfors.woff') format('woff'),
+       url('/assets/fonts/TTfors.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-display: 'NCL Gasdrifo', 'Audiowide', sans-serif;
+  --font-body: 'TTfors', 'DM Sans', sans-serif;
+
   --bg: #FBF3E3;
   --bg-gradient: linear-gradient(180deg, #FBF3E3 0%, #F0E6D0 100%);
   --bg2: #F6E9D4;
@@ -34,6 +61,10 @@
   --btn-gold-inset: rgba(199, 120, 144, 0.4);
   --nav-bg: rgba(251, 243, 227, 0.85);
   --nav-hover-bg: rgba(226, 154, 176, 0.15);
+  --nav-glass-bg: linear-gradient(135deg, rgba(255, 253, 247, 0.55) 0%, rgba(251, 243, 227, 0.30) 100%);
+  --nav-glass-border: rgba(255, 255, 255, 0.55);
+  --nav-glass-highlight: rgba(255, 255, 255, 0.65);
+  --nav-glass-shadow: rgba(74, 59, 50, 0.18);
   --card-bg: #FFFDF7;
   --tag-bg: rgba(74, 59, 50, 0.06);
   --glow: rgba(226, 154, 176, 0.18);
@@ -139,6 +170,10 @@
   --btn-gold-inset: rgba(230, 168, 186, 0.3);
   --nav-bg: rgba(36, 26, 22, 0.88);
   --nav-hover-bg: rgba(245, 233, 218, 0.12);
+  --nav-glass-bg: linear-gradient(135deg, rgba(58, 42, 34, 0.60) 0%, rgba(36, 26, 22, 0.35) 100%);
+  --nav-glass-border: rgba(245, 233, 218, 0.18);
+  --nav-glass-highlight: rgba(245, 233, 218, 0.14);
+  --nav-glass-shadow: rgba(0, 0, 0, 0.45);
   --card-bg: #3A2A22;
   --tag-bg: rgba(245, 233, 218, 0.07);
   --glow: rgba(226, 154, 176, 0.12);
@@ -191,7 +226,7 @@
   color: var(--text);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-md);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   z-index: 999;
   transition: top var(--duration-fast) var(--ease-out);
@@ -229,7 +264,7 @@ html {
 body {
   background: var(--bg-gradient);
   color: var(--text);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   overflow-x: hidden;
   transition: background 0.4s ease, color 0.4s ease;
@@ -252,6 +287,7 @@ body {
   display: block;
 }
 
+.nav-logo img { height: 48px; }
 .footer-logo img { height: 36px; }
 
 
@@ -263,7 +299,7 @@ body {
   gap: 8px;
   padding: 0 28px;
   height: 48px;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -272,7 +308,7 @@ body {
   border: none;
   outline: none;
   text-decoration: none;
-  border-radius: var(--radius-md);
+  border-radius: 25px;
   transition: box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-out);
   user-select: none;
   -webkit-font-smoothing: antialiased;
@@ -386,7 +422,7 @@ body {
   gap: 6px;
   padding: 4px var(--space-3);
   border-radius: var(--radius-sm);
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -424,17 +460,21 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--nav-bg);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: var(--nav-glass-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-radius: 999px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--nav-glass-border);
   transition: background 0.4s ease, border-color 0.4s ease;
-  box-shadow: 0 2px 16px var(--shadow-sm), 0 1px 4px var(--shadow-xs);
+  box-shadow:
+    0 8px 32px var(--nav-glass-shadow),
+    0 2px 8px var(--shadow-xs),
+    inset 0 1px 0 var(--nav-glass-highlight),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04);
 }
 
 .nav-logo {
-  font-family: 'Audiowide', sans-serif;
+  font-family: var(--font-body);
   font-size: 22px;
   letter-spacing: 0.08em;
   color: var(--text);
@@ -453,7 +493,7 @@ nav {
 }
 
 .nav-links a {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.15em;
@@ -530,7 +570,7 @@ footer {
 }
 
 .footer-logo {
-  font-family: 'Audiowide', sans-serif;
+  font-family: var(--font-body);
   font-size: 28px;
   letter-spacing: 0.08em;
   color: var(--text);
@@ -541,7 +581,7 @@ footer {
 }
 
 .footer-tagline {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 400;
   color: var(--text3);
@@ -556,7 +596,7 @@ footer {
 }
 
 .footer-col-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.2em;
@@ -597,7 +637,7 @@ footer {
 }
 
 .footer-copy {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.15em;
@@ -653,7 +693,7 @@ footer {
 }
 
 .mobile-nav-label {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.1em;

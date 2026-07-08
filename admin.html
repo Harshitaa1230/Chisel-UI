@@ -10,7 +10,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <style>
+    /* ── CUSTOM FONTS ──
+       NCL Gasdrifo (Enxyclo Studio) for H1, TT Fors for everything else.
+       Drop the licensed font files into public/assets/fonts/. */
+    @font-face {
+      font-family: 'NCL Gasdrifo';
+      src: url('/assets/fonts/NCLGasdrifo.woff2') format('woff2'),
+           url('/assets/fonts/NCLGasdrifo.woff') format('woff'),
+           url('/assets/fonts/NCLGasdrifo.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'TTfors';
+      src: url('/assets/fonts/TTfors.woff2') format('woff2'),
+           url('/assets/fonts/TTfors.woff') format('woff'),
+           url('/assets/fonts/TTfors.otf') format('opentype');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
+      --font-display: 'NCL Gasdrifo', 'Audiowide', sans-serif;
+      --font-body: 'TTfors', 'DM Sans', sans-serif;
       --bg: #FBF3E3;
       --bg-gradient: linear-gradient(180deg, #FBF3E3 0%, #F0E6D0 100%);
       --bg2: #F6E9D4;
@@ -24,6 +49,10 @@
       --accent2: #E29AB0;
       --nav-bg: rgba(251, 243, 227, 0.85);
       --nav-hover-bg: rgba(226, 154, 176, 0.15);
+      --nav-glass-bg: linear-gradient(135deg, rgba(255, 253, 247, 0.55) 0%, rgba(251, 243, 227, 0.30) 100%);
+      --nav-glass-border: rgba(255, 255, 255, 0.55);
+      --nav-glass-highlight: rgba(255, 255, 255, 0.65);
+      --nav-glass-shadow: rgba(74, 59, 50, 0.18);
       --card-bg: #FFFDF7;
       --tag-bg: rgba(74, 59, 50, 0.06);
       --glow: rgba(226, 154, 176, 0.18);
@@ -64,6 +93,10 @@
       --accent2: #E29AB0;
       --nav-bg: rgba(36, 26, 22, 0.88);
       --nav-hover-bg: rgba(245, 233, 218, 0.12);
+      --nav-glass-bg: linear-gradient(135deg, rgba(58, 42, 34, 0.60) 0%, rgba(36, 26, 22, 0.35) 100%);
+      --nav-glass-border: rgba(245, 233, 218, 0.18);
+      --nav-glass-highlight: rgba(245, 233, 218, 0.14);
+      --nav-glass-shadow: rgba(0, 0, 0, 0.45);
       --card-bg: #3A2A22;
       --tag-bg: rgba(245, 233, 218, 0.07);
       --glow: rgba(226, 154, 176, 0.12);
@@ -83,7 +116,7 @@
     .logo-dark  { display: none;  }
     [data-theme="dark"] .logo-light { display: none;  }
     [data-theme="dark"] .logo-dark  { display: block; }
-    .nav-logo img { height: 28px; width: auto; display: block; }
+    .nav-logo img { height: 48px; width: auto; display: block; }
     .password-box .nav-logo img { height: 32px; margin: 0 auto var(--space-6); }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -91,7 +124,7 @@
     body {
       background: var(--bg-gradient);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       min-height: 100vh;
     }
 
@@ -106,17 +139,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--nav-bg);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      background: var(--nav-glass-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       border-radius: 999px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--nav-glass-border);
       transition: background 0.4s ease, border-color 0.4s ease;
-      box-shadow: 0 2px 16px var(--shadow-sm), 0 1px 4px var(--shadow-xs);
+      box-shadow:
+        0 8px 32px var(--nav-glass-shadow),
+        0 2px 8px var(--shadow-xs),
+        inset 0 1px 0 var(--nav-glass-highlight),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.04);
     }
 
     .nav-logo {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 18px;
       letter-spacing: 0.08em;
       color: var(--text);
@@ -162,7 +199,7 @@
     }
 
     .page-header h1 {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(24px, 3vw, 36px);
       color: var(--text);
     }
@@ -183,14 +220,14 @@
     }
 
     .stat-card .value {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 32px;
       color: var(--text);
       margin-bottom: var(--space-1);
     }
 
     .stat-card .label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       color: var(--text3);
       text-transform: uppercase;
@@ -218,7 +255,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       color: var(--text);
     }
@@ -239,7 +276,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       color: var(--text);
       cursor: pointer;
@@ -254,8 +291,8 @@
       background: var(--accent2);
       color: var(--bg);
       border: none;
-      border-radius: var(--radius-md);
-      font-family: 'Orbitron', sans-serif;
+      border-radius: 25px;
+      font-family: var(--font-body);
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -297,7 +334,7 @@
       text-align: left;
       padding: var(--space-4);
       background: var(--surface2);
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       font-weight: 400;
       letter-spacing: 0.1em;
@@ -323,7 +360,7 @@
       align-items: center;
       padding: 4px 8px;
       border-radius: var(--radius-sm);
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 9px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -417,7 +454,7 @@
     }
 
     .modal-header h2 {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 20px;
       color: var(--text);
     }
@@ -443,7 +480,7 @@
 
     .form-group label {
       display: block;
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -458,7 +495,7 @@
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       color: var(--text);
     }
@@ -485,7 +522,7 @@
       display: flex;
       align-items: center;
       gap: var(--space-2);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       text-transform: none;
       letter-spacing: normal;
@@ -603,7 +640,7 @@
     }
 
     .password-box .nav-logo {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 24px;
       letter-spacing: 0.08em;
       color: var(--text);
@@ -615,7 +652,7 @@
     .password-box .nav-logo span { color: var(--accent2); }
 
     .password-box h2 {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 18px;
       color: var(--text);
       margin-bottom: var(--space-6);
@@ -627,7 +664,7 @@
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       color: var(--text);
       text-align: center;
