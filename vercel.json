@@ -1,7 +1,13 @@
 {
-  "output": "static",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/components", "destination": "/components.html" },
+    { "source": "/docs", "destination": "/docs.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
