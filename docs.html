@@ -42,7 +42,7 @@
     }
 
     .doc-sidebar-logo a {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       letter-spacing: 0.08em;
       color: var(--text);
@@ -53,7 +53,7 @@
 
     .doc-version {
       display: inline-block;
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 9px;
       background: var(--accent2);
       color: var(--bg);
@@ -90,7 +90,7 @@
       background: none;
       border: none;
       outline: none;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 13px;
       color: var(--text);
       min-width: 0;
@@ -99,7 +99,7 @@
     .doc-search input::placeholder { color: var(--text3); }
 
     .doc-search-shortcut {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 9px;
       color: var(--text3);
       background: var(--tag-bg);
@@ -110,7 +110,7 @@
     }
 
     .doc-nav-section-label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -121,7 +121,7 @@
 
     .doc-nav-item {
       display: block;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 13px;
       color: var(--text2);
       padding: var(--space-2) var(--space-6);
@@ -159,7 +159,7 @@
     }
 
     .doc-content h1 {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(28px, 3vw, 40px);
       color: var(--text);
       margin: var(--space-12) 0 var(--space-6);
@@ -170,7 +170,7 @@
     .doc-content h1:first-child { border-top: none; margin-top: 0; }
 
     .doc-content h2 {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: clamp(18px, 2vw, 24px);
       color: var(--text);
       margin: var(--space-10) 0 var(--space-4);
@@ -178,7 +178,7 @@
     }
 
     .doc-content h3 {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -189,7 +189,7 @@
     .doc-content h3:first-child { margin-top: 0; }
 
     .doc-content h4 {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -198,7 +198,7 @@
     }
 
     .doc-content p {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 15px;
       line-height: 1.8;
       color: var(--text2);
@@ -235,13 +235,13 @@
 
     .doc-content ol li::marker {
       color: var(--accent2);
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 11px;
     }
 
     .doc-content ul,
     .doc-content ol {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 15px;
       line-height: 1.8;
       color: var(--text2);
@@ -273,7 +273,7 @@
     }
 
     .doc-section-break-label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -292,7 +292,7 @@
     }
 
     .doc-code-filename {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -304,7 +304,7 @@
     }
 
     .doc-code pre {
-      font-family: 'DM Sans', monospace;
+      font-family: 'TTfors', monospace;
       font-size: 12px;
       line-height: 1.7;
       color: var(--text2);
@@ -320,7 +320,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: var(--space-1) var(--space-2);
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 9px;
       cursor: pointer;
       color: var(--text3);
@@ -336,12 +336,12 @@
       width: 100%;
       border-collapse: collapse;
       margin: var(--space-4) 0 var(--space-6);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
     }
 
     .doc-table th {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -362,7 +362,7 @@
     .doc-table tr:hover td { background: var(--surface2); }
 
     .doc-table code {
-      font-family: 'DM Sans', monospace;
+      font-family: 'TTfors', monospace;
       font-size: 11px;
       background: var(--tag-bg);
       padding: 2px var(--space-2);
@@ -431,7 +431,7 @@
     }
 
     .doc-do-label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -440,7 +440,7 @@
     }
 
     .doc-dont-label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -450,7 +450,7 @@
 
     .doc-do-desc,
     .doc-dont-desc {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 13px;
       color: var(--text2);
       line-height: 1.6;
@@ -472,7 +472,7 @@
     }
 
     .doc-toc-label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -491,7 +491,7 @@
 
     .doc-toc-item {
       display: block;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 12px;
       color: var(--text3);
       padding: var(--space-1) 0;
@@ -522,7 +522,7 @@
     }
 
     .doc-toc-quicklink {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -564,7 +564,7 @@
     }
 
     .doc-pagination-label {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -572,7 +572,7 @@
     }
 
     .doc-pagination-title {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 14px;
       color: var(--text);
     }
@@ -585,7 +585,7 @@
       align-items: center;
       padding: 2px 8px;
       border-radius: var(--radius-sm);
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 9px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -618,7 +618,7 @@
     }
 
     .doc-page-header .eyebrow {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       font-weight: 400;
       letter-spacing: 0.15em;
@@ -628,7 +628,7 @@
     }
 
     .doc-page-header h1 {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-display);
       font-size: clamp(32px, 4vw, 48px);
       color: var(--text);
       letter-spacing: 0.02em;
@@ -639,14 +639,14 @@
     }
 
     .doc-page-header .desc {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 16px;
       color: var(--text2);
       margin-bottom: var(--space-3);
     }
 
     .doc-page-header .meta {
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -727,7 +727,7 @@
       background: var(--tag-bg);
       padding: var(--space-1) var(--space-3);
       border-radius: var(--radius-full);
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-body);
       font-size: 10px;
       color: var(--text3);
       margin-bottom: var(--space-4);
@@ -748,14 +748,14 @@
     }
 
     .doc-overview-card-value {
-      font-family: 'Audiowide', sans-serif;
+      font-family: var(--font-body);
       font-size: 32px;
       color: var(--accent2);
       margin-bottom: var(--space-1);
     }
 
     .doc-overview-card-label {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 13px;
       color: var(--text2);
     }
