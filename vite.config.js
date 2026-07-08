@@ -9,7 +9,7 @@ function copyHtmlFiles() {
   return {
     name: 'copy-html-files',
     closeBundle() {
-      const outDir = '.vercel/output/static';
+      const outDir = 'dist';
       const htmlFiles = ['docs.html', 'admin.html', 'components.html'];
       htmlFiles.forEach(file => {
         copyFileSync(resolve(__dirname, file), resolve(__dirname, outDir, file));
@@ -22,7 +22,7 @@ export default defineConfig({
   root: '.',
   publicDir: 'public',
   build: {
-    outDir: '.vercel/output/static',
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
